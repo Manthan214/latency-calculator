@@ -6,19 +6,27 @@ from testScripts import testVideo
 from reuseable import serverAppium
 from audio import listen
 import excel_data
+from preRequisites import preSettings
 
 
 if __name__ == '__main__':
     # try:
-    serverAppium.start_server()
+    print("pre setting has been called")
+    pin,port = preSettings.pre_req()
+    print("pre setting has been finished")
+
+    # serverAppium.start_server()
     try:
         testVideo.launch_appium_driver()
     except:
         pass
-    for i in range(0, 3):
+
+    # pin,port=flash_detect.arduino()
+
+    for i in range(0, 2):
         thread1 = threading.Thread(target=testVideo.play_video)
         thread1.start()
-        thread2 = threading.Thread(target=flash_detect.arduino)
+        thread2 = threading.Thread(target=flash_detect.getArduino,args=(pin,port))
         thread2.start()
         thread3 = threading.Thread(target=listen.listen)
         thread3.start()
