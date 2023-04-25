@@ -8,11 +8,23 @@ m = sr.Microphone()
 f = sr.AudioFile(r"C:\Users\Anuj\PycharmProjects\Project(video-audio)\audio\recorded_audio7.wav")
 
 
+def audio_return():
+    a=0
+    while True:
+        if a>5:
+            break
+        with m as source:
+            sound_time = time.time()
+            r.adjust_for_ambient_noise(source)
+            print(r.energy_threshold)
+            if r.energy_threshold>400:
+                print("True")
+                print(sound_time)
+            else:
+                a+=1
+        # print("Set minimum energy threshold to {}".format(r.energy_threshold))
+
 def listen():
-    # print("A moment of silence, please...")
-    # with m as source:
-    #     r.adjust_for_ambient_noise(source)
-    # print("Set minimum energy threshold to {}".format(r.energy_threshold))
 
     # f = sr.AudioFile(r"C:\Users\158430\PycharmProjects\Assignment\project\recorded_audio.wav")
     with m as source:

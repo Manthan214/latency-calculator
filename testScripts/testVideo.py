@@ -42,9 +42,34 @@ def action_click():
     actions.perform()
     driver.find_element(AppiumBy.XPATH, videoLocators.vlc_app()).click()
 
+def audio_click():
+    driver.find_element(AppiumBy.XPATH, "//android.widget.FrameLayout[@content-desc='Audio']").click()
+    # time.sleep(2)
+    driver.find_element(AppiumBy.XPATH, '//android.widget.TextView[@text="1_to_20.wav"]').click()
+    print("Time Stamp of audio: ", time.time())
+    actions = ActionChains(driver)
+    actions.w3c_actions = ActionBuilder(driver, mouse=PointerInput(interaction.POINTER_TOUCH, "touch"))
+    actions.w3c_actions.pointer_action.move_to_location(575, 1558)
+    actions.w3c_actions.pointer_action.pointer_down()
+    actions.w3c_actions.pointer_action.pause(0.1)
+    actions.w3c_actions.pointer_action.release()
+    actions.perform()
+    # time.sleep(10)
+
+def audio_pause():
+    actions = ActionChains(driver)
+    actions.w3c_actions = ActionBuilder(driver, mouse=PointerInput(interaction.POINTER_TOUCH, "touch"))
+    actions.w3c_actions.pointer_action.move_to_location(538, 1686)
+    actions.w3c_actions.pointer_action.pointer_down()
+    actions.w3c_actions.pointer_action.pause(0.1)
+    actions.w3c_actions.pointer_action.release()
+    actions.perform()
+    time.sleep(2)
+    driver.back()
 
 # Playing video in VLC player
 def play_video():
+    driver.find_element(AppiumBy.XPATH, "//android.widget.FrameLayout[@content-desc='Video']").click()
     driver.find_element(AppiumBy.XPATH, videoLocators.video()).click()
     b_current_time = time.time()
     dict["Video_play"] = str(b_current_time)[6:]
