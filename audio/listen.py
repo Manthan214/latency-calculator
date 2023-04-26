@@ -11,7 +11,7 @@ f = sr.AudioFile(r"C:\Users\Anuj\PycharmProjects\Project(video-audio)\audio\reco
 def audio_return():
     a=0
     while True:
-        if a>5:
+        if a>3:
             break
         with m as source:
             sound_time = time.time()

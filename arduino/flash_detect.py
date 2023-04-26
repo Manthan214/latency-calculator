@@ -4,7 +4,6 @@ import serial.tools.list_ports
 
 from testScripts import testVideo
 import pyfirmata
-import pandas as pd
 
 lst1 = []
 lst2 = []
@@ -37,12 +36,12 @@ def getArduino(pinA0,port):
             time.sleep(1)
         output_final = 0
         for i in output:
-            # print(output)
+            print(output)
             if i is not None:
                 output_final += float(i) * 1000
                 # print(output_final)
         output_final = output_final / (len(output) - 1)
-        # port.exit()
+        port.exit()
         if output_final>=200:
             print("Flash detected :True")
             print('Timestamp of Flash detected:', flash_current_time)
@@ -50,3 +49,6 @@ def getArduino(pinA0,port):
             testVideo.dict["flash detection"] = output_final
 
 
+# for i in range(5):
+#     pin,port=arduino()
+#     getArduino(pin,port)

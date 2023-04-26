@@ -69,7 +69,7 @@ def audio_pause():
 
 # Playing video in VLC player
 def play_video():
-    driver.find_element(AppiumBy.XPATH, "//android.widget.FrameLayout[@content-desc='Video']").click()
+    # driver.find_element(AppiumBy.XPATH, "//android.widget.FrameLayout[@content-desc='Video']").click()
     driver.find_element(AppiumBy.XPATH, videoLocators.video()).click()
     b_current_time = time.time()
     dict["Video_play"] = str(b_current_time)[6:]
@@ -116,3 +116,7 @@ def stop_record():
 
 def close_app():
     driver.quit()
+    print("Driver quit")
+
+
+
