@@ -14,7 +14,7 @@ x=True
 if __name__ == '__main__':
     try:
         print("----pre setting has been called----")
-        pin,port = preSettings.pre_req()
+        ser = preSettings.pre_req()
         print(simple_colors.green("----pre setting has been finished sucessfully----"))
     except:
         x=False
@@ -32,7 +32,7 @@ if __name__ == '__main__':
             print("Starting the thread",i)
             thread1 = threading.Thread(target=testVideo.play_video)
             thread1.start()
-            thread2 = threading.Thread(target=flash_detect.getArduino,args=(pin,port))
+            thread2 = threading.Thread(target=flash_detect.getArduino(ser))
             thread2.start()
             thread3 = threading.Thread(target=listen.listen)
             thread3.start()
@@ -46,6 +46,7 @@ if __name__ == '__main__':
             thread1.join()
             thread2.join()
             thread3.join()
+            time.sleep(5)
             print(testVideo.dict)
             excel_data.difference()
 
@@ -58,4 +59,4 @@ if __name__ == '__main__':
     else:
         print("There is an error in code!!")
 
-    # serverAppium.stop_server()
+    serverAppium.stop_server()
