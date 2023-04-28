@@ -1,6 +1,7 @@
 def vlc_app():
+    """ This will return the VLC app"""
     return "//android.widget.TextView[@text= 'VLC']"
 
 def video():
-    # return "//android.widget.TextView[@text='Manzar_Hai_Yeh_Naya']"
+    """ this will return the Xpath of our video"""
     return "//android.widget.TextView[@text='123_videoo']"

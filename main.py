@@ -12,6 +12,7 @@ from preRequisites import preSettings
 
 x=True
 if __name__ == '__main__':
+
     try:
         print("----pre setting has been called----")
         ser = preSettings.pre_req()
@@ -20,6 +21,7 @@ if __name__ == '__main__':
         x=False
         print(simple_colors.red("----pre settings has failed!----"))
     if (x==True):
+        iterartion_times = int(input("how many times you wanna play "))
         try:
             print(simple_colors.blue("----Relauching the application----"))
             testVideo.launch_appium_driver()
@@ -27,8 +29,10 @@ if __name__ == '__main__':
             pass
 
         # pin,port=flash_detect.arduino()
+        data1=[]
+        wb, ws, header_format=excel_data.Starting_workbook()
 
-        for i in range(0, 2):
+        for i in range(iterartion_times):
             print("Starting the thread",i)
             thread1 = threading.Thread(target=testVideo.play_video)
             thread1.start()
@@ -37,7 +41,8 @@ if __name__ == '__main__':
             time.sleep(1)
             thread2 = threading.Thread(target=flash_detect.getArduino(ser))
             thread2.start()
-
+            thread6 = threading.Thread(target=listen.audio_return)
+            thread6.start()
             testVideo.timeSleep()
 
             thread5 = threading.Thread(target=testVideo.pauseVideo)
@@ -47,13 +52,15 @@ if __name__ == '__main__':
             thread1.join()
             thread2.join()
             thread3.join()
+            thread6.join()
             time.sleep(5)
             print(testVideo.dict)
-            excel_data.difference()
-
+            c=excel_data.appending(testVideo.dict)
+            data1.append(c)
             print("....//iteration completed//....", i+1)
+        excel_data.creating_table(ws, data1, header_format)
         testVideo.close_app()
-        excel_data.excel_disp()
+        excel_data.close_workbook(wb)
 
 
 

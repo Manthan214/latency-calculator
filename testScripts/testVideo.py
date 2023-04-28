@@ -18,6 +18,7 @@ dict = {}
 
 # Launching appium driver here
 def launch_appium_driver():
+    """ This is use to launch our appium driver"""
     global driver
     driver = webdriver.Remote("http://localhost:4723/wd/hub", MobileConfig.desired_caps)
     driver.implicitly_wait(10)
@@ -26,6 +27,7 @@ def launch_appium_driver():
 
 # Starting screen recording
 def start_record():
+    """ This will start the screen recording and return the timestamp for it"""
     driver.start_recording_screen()
     a_current_time = time.time()
     print('Timestamp of Record:', a_current_time)
@@ -69,6 +71,7 @@ def audio_pause():
 
 # Playing video in VLC player
 def play_video():
+    """ This will find the video location and will play the video"""
     # driver.find_element(AppiumBy.XPATH, "//android.widget.FrameLayout[@content-desc='Video']").click()
     driver.find_element(AppiumBy.XPATH, videoLocators.video()).click()
     b_current_time = time.time()
@@ -81,6 +84,7 @@ def timeSleep():
 
 
 def pauseVideo():
+    """ This will pause our video and will return the timestamp for pausing the video"""
     actions = ActionChains(driver)
     actions.w3c_actions = ActionBuilder(driver, mouse=PointerInput(interaction.POINTER_TOUCH, "touch"))
     actions.w3c_actions.pointer_action.move_to_location(542, 1719)
@@ -103,6 +107,7 @@ def pauseVideo():
     driver.back()
 
 def stop_record():
+    """ This will stop the screen record using appium and will give the timestamp for it"""
     recording_raw = driver.stop_recording_screen()
 
     d_current_time = time.time()
