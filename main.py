@@ -1,47 +1,70 @@
 import threading
 import time
+import simple_colors
 from arduino import flash_detect
 import pandas as pd
-from testScripts import testVideo
+
 from reuseable import serverAppium
+from testScripts import testVideo
 from audio import listen
 import excel_data
+from preRequisites import preSettings
 
-
+x=True
 if __name__ == '__main__':
-    # try:
-    serverAppium.start_server()
+
     try:
-        testVideo.launch_appium_driver()
+        print("----pre setting has been called----")
+        ser = preSettings.pre_req()
+        print(simple_colors.green("----pre setting has been finished sucessfully----"))
     except:
-        pass
-    for i in range(0, 3):
-        thread1 = threading.Thread(target=testVideo.play_video)
-        thread1.start()
-        thread2 = threading.Thread(target=flash_detect.arduino)
-        thread2.start()
-        thread3 = threading.Thread(target=listen.listen)
-        thread3.start()
+        x=False
+        print(simple_colors.red("----pre settings has failed!----"))
+    if (x==True):
+        iterartion_times = int(input("how many times you wanna play "))
+        try:
+            print(simple_colors.blue("----Relauching the application----"))
+            testVideo.launch_appium_driver()
+        except:
+            pass
 
-        testVideo.timeSleep()
+        # pin,port=flash_detect.arduino()
+        data1=[]
+        wb, ws, header_format=excel_data.Starting_workbook()
 
-        thread5 = threading.Thread(target=testVideo.pauseVideo)
+        for i in range(iterartion_times):
+            print("Starting the thread",i)
+            thread1 = threading.Thread(target=testVideo.play_video)
+            thread1.start()
+            thread3 = threading.Thread(target=listen.listen)
+            thread3.start()
+            time.sleep(1)
+            thread2 = threading.Thread(target=flash_detect.getArduino(ser))
+            thread2.start()
+            thread6 = threading.Thread(target=listen.audio_return)
+            thread6.start()
+            testVideo.timeSleep()
 
-        thread5.start()
-        thread5.join()
-        thread1.join()
-        thread2.join()
-        thread3.join()
-        print(testVideo.dict)
-        excel_data.difference()
+            thread5 = threading.Thread(target=testVideo.pauseVideo)
 
-        print("....//iteration completed//....", i+1)
-    testVideo.close_app()
-    excel_data.excel_disp()
-    # for k in range(len(dict_excel)):
-    # dict_excel['Diff_start']=dict_excel['Listen_start']-dict_excel['Video_play']
+            thread5.start()
+            thread5.join()
+            thread1.join()
+            thread2.join()
+            thread3.join()
+            thread6.join()
+            time.sleep(5)
+            print(testVideo.dict)
+            c=excel_data.appending(testVideo.dict)
+            data1.append(c)
+            print("....//iteration completed//....", i+1)
+        excel_data.creating_table(ws, data1, header_format)
+        testVideo.close_app()
+        excel_data.close_workbook(wb)
 
-# except:
-#     print("There is an error in code!!")
-# finally:
-# serverAppium.stop_server()
+
+
+    else:
+        print("There is an error in code!!")
+
+    # serverAppium.stop_server()

@@ -4,15 +4,29 @@ from testScripts import testVideo
 import time
 
 r = sr.Recognizer()
+global m
 m = sr.Microphone()
 f = sr.AudioFile(r"C:\Users\Anuj\PycharmProjects\Project(video-audio)\audio\recorded_audio7.wav")
 
+Threshold_value=400
+def audio_return():
+    a=0
+    print("----intilizing the microphone----")
+    while True:
+        if a>3:
+            break
+        with m as source:
+            r.adjust_for_ambient_noise(source)
+            print(r.energy_threshold)
+            if r.energy_threshold>Threshold_value:
+                sound_time = time.time()
+                print("True")
+                print("----Timestamp of sound detct:",sound_time,"----")
+            else:
+                a+=1
+        # print("Set minimum energy threshold to {}".format(r.energy_threshold))
 
 def listen():
-    # print("A moment of silence, please...")
-    # with m as source:
-    #     r.adjust_for_ambient_noise(source)
-    # print("Set minimum energy threshold to {}".format(r.energy_threshold))
 
     # f = sr.AudioFile(r"C:\Users\158430\PycharmProjects\Assignment\project\recorded_audio.wav")
     with m as source:

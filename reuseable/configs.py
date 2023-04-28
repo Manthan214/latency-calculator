@@ -6,8 +6,5 @@ class MobileConfig:
         'deviceName': 'Pixel 2',
         'platformName': 'Android',
         'platformVersion': '11',
-        'udid': 'HT81Y1A02145',
-        # 'appPackage':'org.videolan.vlc',
-        # 'appActivity' :'org.videolan.vlc.StartActivity'
-        # 'appActivity': '.gui.MainActivity'
+        'udid': 'HT81Y1A02145'
     }
