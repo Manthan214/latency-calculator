@@ -3,4 +3,4 @@ def vlc_app():
 
 def video():
     # return "//android.widget.TextView[@text='Manzar_Hai_Yeh_Naya']"
-    return "//android.widget.TextView[@text='Video123']"
+    return "//android.widget.TextView[@text='123_videoo']"

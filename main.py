@@ -32,10 +32,11 @@ if __name__ == '__main__':
             print("Starting the thread",i)
             thread1 = threading.Thread(target=testVideo.play_video)
             thread1.start()
-            thread2 = threading.Thread(target=flash_detect.getArduino(ser))
-            thread2.start()
             thread3 = threading.Thread(target=listen.listen)
             thread3.start()
+            time.sleep(1)
+            thread2 = threading.Thread(target=flash_detect.getArduino(ser))
+            thread2.start()
 
             testVideo.timeSleep()
 
@@ -59,4 +60,4 @@ if __name__ == '__main__':
     else:
         print("There is an error in code!!")
 
-    serverAppium.stop_server()
+    # serverAppium.stop_server()

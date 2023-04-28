@@ -19,15 +19,15 @@ def pre_req():
     ser = flash_detect.arduino()
     time.sleep(2)
     # for i in range(5):
-    print("----PreRequisite Threading started----")
+    print("----Starting the process----")
+    print("----Please be silent test has been proceed----")
+    time.sleep(5)
+
     thread3 = threading.Thread(target=listen.audio_return)
     thread3.start()
     thread1 = threading.Thread(target=testVideo.play_video)
     thread1.start()
 
-    # flash_detect.getArduino(ser)
-    # thread2 = threading.Thread(target=flash_detect.getArduino,args=ser)
-    # thread2.start()
     thread2 = threading.Thread(target=flash_detect.getArduino(ser))
     thread2.start()
     time.sleep(5)
@@ -44,4 +44,4 @@ def pre_req():
     testVideo.close_app()
 
     return ser
-# pre_req()
+pre_req()

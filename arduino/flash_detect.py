@@ -20,10 +20,10 @@ def arduino():
 def getArduino(pin):
         ouy=[]
         x=0
-        print("----in the reading mode---")
         global start_time
+        time.sleep(1)
         for i in range(5):
-            if i==3:
+            if i==4:
                 start_time = time.time()
             a = pin.readline()
             str_rn = a.decode()
@@ -39,11 +39,3 @@ def getArduino(pin):
             print("Flash detection :", x)
             testVideo.dict["flash detection"] = x
 
-# #
-# ser=arduino()
-# for i in range(1):
-#     # it = pyfirmata.util.Iterator(port)
-#     # it.start()
-#     time.sleep(1)
-#     getArduino(ser)
-#     # print(read_out)
