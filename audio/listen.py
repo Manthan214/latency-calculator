@@ -10,6 +10,15 @@ f = sr.AudioFile(r"C:\Users\Anuj\PycharmProjects\Project(video-audio)\audio\reco
 
 Threshold_value=400
 def audio_return():
+    """
+    Continuously listens for sound input from the microphone and returns the timestamp when a sound is detected.
+
+    Returns:
+    float: Timestamp of the sound detection.
+
+    Raises:
+    IOError: If there is an issue with the microphone.
+    """
     a=0
     print("----intilizing the microphone----")
     while True:
@@ -21,13 +30,21 @@ def audio_return():
             if r.energy_threshold>Threshold_value:
                 sound_time = time.time()
                 print("True")
-                print("----Timestamp of sound detct:",sound_time,"----")
+                print("----Timestamp of sound detect:",sound_time,"----")
             else:
                 a+=1
         # print("Set minimum energy threshold to {}".format(r.energy_threshold))
 
 def listen():
+    """
+        Uses the microphone to listen for speech input and returns the recognized text.
 
+        Returns:
+        str: The recognized text from the speech input.
+
+        Raises:
+        SpeechRecognitionError: If the speech input cannot be recognized or if there is an issue with the microphone.
+        """
     # f = sr.AudioFile(r"C:\Users\158430\PycharmProjects\Assignment\project\recorded_audio.wav")
     with m as source:
         # print("Speak something...", datetime.datetime.now())
@@ -41,6 +58,10 @@ def listen():
         testVideo.dict["Listen_stop"] = str(y_current_time)[6:]
         print("Listen Stopped....", y_current_time)
         print("------------------------------------------")
+        text = r.recognize_google(audio_data_my)
+        print("sending data..", time.time())
+        end = time.time()
+        print("text:", text)
     # return audio_data_my
 
     # # def record(audio_data_my):
@@ -51,14 +72,14 @@ def listen():
 
     # def detect(audio_data_my):
     # use the recognizer to transcribe the audio
-    text = r.recognize_google(audio_data_my)
-    print("sending data..", time.time())
-    end = time.time()
-    print("text:", text)
+    # text = r.recognize_google(audio_data_my)
+    # print("sending data..", time.time())
+    # end = time.time()
+    # print("text:", text)
     # print("starting time: ", start)
     # print("ending time: ", end)
 
-# p=listen()
-# # print(p)
-# # record(audio_data_my=p)
+listen()
+# print(p)
+# record(audio_data_my=p)
 # detect(audio_data_my=p)
