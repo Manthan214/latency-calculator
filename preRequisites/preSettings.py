@@ -18,20 +18,20 @@ def pre_req():
     except:
         pass
     print("----Initializing pin and port with arduino----")
-    ser = flash_detect.arduino()
+    ser,led = flash_detect.arduino()
     time.sleep(2)
     # for i in range(5):
     print(simple_colors.green("----Starting the process----"))
     print(simple_colors.red("----Please be silent test has been proceed----"))
     time.sleep(5)
 
-    thread3 = threading.Thread(target=listen.audio_return)
-    thread3.start()
+    # thread3 = threading.Thread(target=listen.listen)
+    # thread3.start()
     thread1 = threading.Thread(target=testVideo.play_video)
     thread1.start()
 
-    thread2 = threading.Thread(target=flash_detect.getArduino(ser))
-    thread2.start()
+    # thread2 = threading.Thread(target=flash_detect.getArduino(ser,led))
+    # thread2.start()
     time.sleep(5)
 
     thread5 = threading.Thread(target=testVideo.pauseVideo)
@@ -39,11 +39,11 @@ def pre_req():
 
     thread5.join()
     thread1.join()
-    thread2.join()
-    thread3.join()
+    # thread2.join()
+    # thread3.join()
     time.sleep(1)
 
     testVideo.close_app()
 
-    return ser
+    return ser,led
 # pre_req()

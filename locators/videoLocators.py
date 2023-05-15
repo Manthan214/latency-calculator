@@ -4,4 +4,4 @@ def vlc_app():
 
 def video():
     """ this will return the Xpath of our video"""
-    return "//android.widget.TextView[@text='123_videoo']"
+    return "//android.widget.TextView[@text='black_white']"
