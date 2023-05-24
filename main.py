@@ -14,7 +14,7 @@ x=True
 if __name__ == '__main__':
 
     try:
-        print("----pre setting has been called----")
+        print("----pre setting is being executed----")
         ser,led = preSettings.pre_req()
         print(simple_colors.green("----pre setting has been finished sucessfully----"))
     except:
@@ -30,7 +30,7 @@ if __name__ == '__main__':
 
         # pin,port=flash_detect.arduino()
         data1=[]
-        # wb, ws, header_format=excel_data.Starting_workbook()
+        # wb, ws, header_format=excel_data.starting_workbook()
 
         # print("Starting the thread",i)
         thread1 = threading.Thread(target=testVideo.play_video)
@@ -43,7 +43,7 @@ if __name__ == '__main__':
         thread2 = threading.Thread(target=flash_detect.getArduino,args=(ser,led))
         thread2.start()
         # testVideo.timeSleep()
-
+        #
         # thread5 = threading.Thread(target=testVideo.pauseVideo)
         # thread5.start()
         # thread5.join()

@@ -9,6 +9,16 @@ from reuseable import serverAppium
 from testScripts import testVideo
 
 def pre_req():
+    """
+        Performs the pre-requisites for running a test.
+
+        This function launches the Appium server, initializes the pin and port with Arduino,
+        starts the necessary threads for video playback and flash detection, and closes the app
+        after the test.
+
+        Returns:
+            tuple: A tuple containing the Arduino serial object (ser) and the LED object (led).
+        """
     # try:
     print("----Launching appium server----")
     serverAppium.start_server()

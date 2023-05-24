@@ -10,7 +10,7 @@ m = sr.Microphone()
 f = sr.AudioFile(r"C:\Users\Anuj\PycharmProjects\Project(video-audio)\audio\recorded_audio7.wav")
 
 
-Threshold_value=1000
+Threshold_value=200
 def audio_return():
     """
     Continuously listens for sound input from the microphone and returns the timestamp when a sound is detected.
@@ -29,13 +29,14 @@ def audio_return():
         with m as source:
             r.adjust_for_ambient_noise(source)
             print(r.energy_threshold)
-            if r.energy_threshold>Threshold_value:
+            if r.energy_threshold>=Threshold_value:
                 sound_time = time.time()
-                MobileConfig.audio_det.append(sound_time)
+                tup_audio = (r.energy_threshold,sound_time)
+                MobileConfig.audio_det.append(tup_audio)
                 a=0
                 print("True")
                 print("----Timestamp of sound detect:",sound_time,"----")
-                time.sleep(1)
+                # time.sleep(1)
             else:
                 a+=1
         # print("Set minimum energy threshold to {}".format(r.energy_threshold))
