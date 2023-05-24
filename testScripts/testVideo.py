@@ -93,7 +93,7 @@ def play_video():
 
 
 def timeSleep():
-    time.sleep(10)
+    time.sleep(60)
 
 
 def pauseVideo():
