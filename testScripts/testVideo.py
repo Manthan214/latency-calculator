@@ -1,6 +1,5 @@
 import base64
 import os
-import threading
 import time
 from appium.webdriver.common.appiumby import AppiumBy
 from appium import webdriver
@@ -10,6 +9,7 @@ from selenium.webdriver.common.actions.action_builder import ActionBuilder
 from selenium.webdriver.common.actions.pointer_input import PointerInput
 from reuseable.configs import MobileConfig
 from locators import videoLocators
+from locators import audioLocators
 
 global dt
 global time_now
@@ -18,6 +18,12 @@ dict = {}
 
 # Launching appium driver here
 def launch_appium_driver():
+    """
+    Launches the Appium driver and starts the VLC player app on the connected device or emulator.
+
+    Raises:
+    WebDriverException: If there is an issue with launching the Appium driver or starting the specified app.
+    """
     global driver
     driver = webdriver.Remote("http://localhost:4723/wd/hub", MobileConfig.desired_caps)
     driver.implicitly_wait(10)
@@ -26,26 +32,23 @@ def launch_appium_driver():
 
 # Starting screen recording
 def start_record():
+    """  Starts the screen recording and returns the timestamp for it."""
     driver.start_recording_screen()
     a_current_time = time.time()
     print('Timestamp of Record:', a_current_time)
 
 
-# Opening the VLC player from menu list
-def action_click():
-    actions = ActionChains(driver)
-    actions.w3c_actions = ActionBuilder(driver, mouse=PointerInput(interaction.POINTER_TOUCH, "touch"))
-    actions.w3c_actions.pointer_action.move_to_location(542, 1598)
-    actions.w3c_actions.pointer_action.pointer_down()
-    actions.w3c_actions.pointer_action.move_to_location(549, 763)
-    actions.w3c_actions.pointer_action.release()
-    actions.perform()
-    driver.find_element(AppiumBy.XPATH, videoLocators.vlc_app()).click()
 
 def audio_click():
-    driver.find_element(AppiumBy.XPATH, "//android.widget.FrameLayout[@content-desc='Audio']").click()
+    """
+    Performs click action and opens the audio window in vlc and clicks on the audio file
+
+    Raises:
+       WebDriverException: If there is an issue with performing the mouse click action or finding the specified element.
+    """
+    driver.find_element(AppiumBy.XPATH, audioLocators.audio_window()).click()
     # time.sleep(2)
-    driver.find_element(AppiumBy.XPATH, '//android.widget.TextView[@text="1_to_20.wav"]').click()
+    driver.find_element(AppiumBy.XPATH, audioLocators.wav_file()).click()
     print("Time Stamp of audio: ", time.time())
     actions = ActionChains(driver)
     actions.w3c_actions = ActionBuilder(driver, mouse=PointerInput(interaction.POINTER_TOUCH, "touch"))
@@ -57,6 +60,12 @@ def audio_click():
     # time.sleep(10)
 
 def audio_pause():
+    """
+    Performs click action to pause the audio being played
+
+    Raises:
+       WebDriverException: If there is an issue with performing the mouse click action or finding the specified element.
+    """
     actions = ActionChains(driver)
     actions.w3c_actions = ActionBuilder(driver, mouse=PointerInput(interaction.POINTER_TOUCH, "touch"))
     actions.w3c_actions.pointer_action.move_to_location(538, 1686)
@@ -69,7 +78,14 @@ def audio_pause():
 
 # Playing video in VLC player
 def play_video():
-    driver.find_element(AppiumBy.XPATH, "//android.widget.FrameLayout[@content-desc='Video']").click()
+    """
+    Finds the location of the video element in the VLC app and plays it.
+
+
+    Raises:
+    WebDriverException: If there is an issue with finding or interacting with the video element.
+    """
+    # driver.find_element(AppiumBy.XPATH, "//android.widget.FrameLayout[@content-desc='Video']").click()
     driver.find_element(AppiumBy.XPATH, videoLocators.video()).click()
     b_current_time = time.time()
     dict["Video_play"] = str(b_current_time)[6:]
@@ -77,10 +93,17 @@ def play_video():
 
 
 def timeSleep():
-    time.sleep(10)
+    time.sleep(60)
 
 
 def pauseVideo():
+    """
+        Pauses the video in the VLC app and returns the timestamp when it was paused.
+
+
+        Raises:
+        WebDriverException: If there is an issue with pausing the video or interacting with any UI elements.
+        """
     actions = ActionChains(driver)
     actions.w3c_actions = ActionBuilder(driver, mouse=PointerInput(interaction.POINTER_TOUCH, "touch"))
     actions.w3c_actions.pointer_action.move_to_location(542, 1719)
@@ -103,6 +126,13 @@ def pauseVideo():
     driver.back()
 
 def stop_record():
+    """
+       Stops the screen recording in the VLC app using Appium and saves the recording to a file.
+
+
+       Raises:
+       WebDriverException: If there is an issue with stopping the recording or interacting with the device.
+       """
     recording_raw = driver.stop_recording_screen()
 
     d_current_time = time.time()
@@ -115,4 +145,9 @@ def stop_record():
 
 
 def close_app():
+    """ Closes the appium driver and quits the app."""
     driver.quit()
+    print("Driver quit")
+
+
+

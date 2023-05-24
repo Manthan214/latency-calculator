@@ -1,10 +1,9 @@
 import time
 
 import serial.tools.list_ports
-
+from reuseable.configs import MobileConfig
 from testScripts import testVideo
 import pyfirmata
-import pandas as pd
 
 lst1 = []
 lst2 = []
@@ -12,41 +11,64 @@ lst3 = []
 
 
 def arduino():
-    board=[p.device for p in serial.tools.list_ports.comports() if 'USB-SERIAL' in p.description]
+    """
+    Connects to an Arduino board and returns a pin and LED object.
+
+    Returns:
+        tuple: A tuple containing the pin and LED objects.
+
+    Note:
+        This function requires the `pyfirmata` library to be installed.
+    """
+    # for x in range(10):
+
+    board = [p.device for p in serial.tools.list_ports.comports() if 'USB-SERIAL' in p.description]
     port = pyfirmata.Arduino(board[0])
-    pinA0 = port.get_pin('a:0:i')
-    return pinA0,port
-def getArduino(pinA0,port):
-        global flash_current_time
-        start_time = time.time()
-        lst1.append(start_time)
+    pin = port.get_pin('a:3:i')
+    led = port.get_pin('d:8:o')
+    it = pyfirmata.util.Iterator(port)
+    it.start()
+    output = []
+    return pin,led
+def getArduino(pin,led):
+    """
+        Reads data from an Arduino pin and controls an LED based on the readings.
 
-        pin_time = time.time()
-        lst2.append(pin_time)
-        it = pyfirmata.util.Iterator(port)
-        it.start()
-        output = []
-
-        for i in range(5):
-            if i == 3:
-                flash_current_time = time.time()
-                lst3.append(flash_current_time)
-            read_out = pinA0.read()
-            output.append(read_out)
-            # print(read_out)
-            time.sleep(1)
-        output_final = 0
-        for i in output:
-            # print(output)
-            if i is not None:
-                output_final += float(i) * 1000
-                # print(output_final)
-        output_final = output_final / (len(output) - 1)
-        # port.exit()
-        if output_final>=200:
-            print("Flash detected :True")
-            print('Timestamp of Flash detected:', flash_current_time)
-            print("Flash detection :", output_final)
-            testVideo.dict["flash detection"] = output_final
+        Args:
+            pin: The pin object from the Arduino board.
+            led: The LED object from the Arduino board.
 
 
+        """
+    y=0
+    while True:
+        if y>7:
+            break
+        global start_time
+        start_time=time.time()
+        read_out = pin.read()
+        # print(read_out)
+        time.sleep(1)
+        if read_out is not None:
+            if (read_out>=0):
+                tup_flash=(read_out,start_time)
+                MobileConfig.flash.append(tup_flash)
+                if read_out>0.15:
+                    led.write(1)
+                else:
+                    led.write(0)
+                if read_out>0.2:
+                    y+=1
+                else:
+                    y=0
+                print("Flash detected :True")
+                print('Timestamp of Flash detected:', start_time)
+                print("Flash detection :", read_out*1000)
+            else:
+                led.write(0)
+                # y+=1
+
+
+#
+# x,l=arduino()
+# getArduino(x,l)
