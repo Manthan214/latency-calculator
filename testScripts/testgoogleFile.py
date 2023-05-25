@@ -11,6 +11,7 @@ from reuseable.configs import MobileConfig
 from locators import videoLocators
 from locators import audioLocators
 
+
 def launch_appium_driver():
     """
     Launches the Appium driver and starts the VLC player app on the connected device or emulator.
@@ -39,6 +40,7 @@ def play_video():
     actions.w3c_actions.pointer_action.pause(0.1)
     actions.w3c_actions.pointer_action.release()
     actions.perform()
+
 
 launch_appium_driver()
 play_video()
