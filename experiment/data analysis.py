@@ -676,14 +676,14 @@ lst2_v = []
 lst2_t = []
 threshold_f = []
 threshold_a = []
-for i in f_new_3:
+for i in f_26_05_9:
     if i:
         lst1_v.append(i[0])
         lst1_t.append(i[1])
         threshold_f.append(0.5)
 print(len(lst1_v), "flash")
 
-for j in a_new_3:
+for j in a_26_05_9:
     if j:
         lst2_v.append(j[0])
         lst2_t.append(j[1])

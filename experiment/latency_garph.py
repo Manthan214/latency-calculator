@@ -1549,14 +1549,14 @@ lst2_v = []
 lst2_t = []
 threshold_f = []
 threshold_a = []
-for i in f_26_05_10:
+for i in f_26_05_9:
     if i:
         lst1_v.append(i[0])
         lst1_t.append(i[1])
         threshold_f.append(0.5)
 print(len(lst1_v), "flash")
 
-for j in a_26_05_10:
+for j in a_26_05_9:
     if j:
         lst2_v.append(j[0])
         lst2_t.append(j[1])
@@ -1574,32 +1574,30 @@ for _ in lst2_v:
 
 # Find local peaks
 peaks_a = []
-
+if scaled_a[0] > scaled_a[1] and scaled_a[0] > scaled_a[2]:
+    peaks_a.append((scaled_a[0], lst2_t[0]))
 for i in range(1, len(scaled_a) - 1):
-    if scaled_a[i - 1] is None and scaled_a[i] > scaled_a[i + 1]:
-        peaks_a.append((scaled_a[i], lst2_t[i]))
-    elif scaled_a[i] > scaled_a[i - 1] and scaled_a[i] > scaled_a[i + 1]:
+
+    if scaled_a[i] > scaled_a[i - 1] and scaled_a[i] > scaled_a[i + 1]:
         peaks_a.append((scaled_a[i], lst2_t[i]))
 
 # Display local peaks
 print("Local peaks:", peaks_a)
 # Find local peaks
 peaks_f = []
-
+if scaled_f[0] > scaled_f[1] and scaled_f[0] > scaled_f[2]:
+    peaks_f.append((scaled_f[0], lst1_t[0]))
 for i in range(1, len(scaled_f) - 1):
-    if scaled_f[i - 1] is None and scaled_f[i] > scaled_f[i + 1]:
-        peaks_f.append((scaled_f[i], lst1_t[i]))
-
-    elif scaled_f[i] > scaled_f[i - 1] and scaled_f[i] > scaled_f[i + 1]:
+    if scaled_f[i] > scaled_f[i - 1] and scaled_f[i] > scaled_f[i + 1]:
         peaks_f.append((scaled_f[i], lst1_t[i]))
 
 # Display local peaks
 print("Local peaks:", peaks_f)
 
-print("peak_f", len(peaks_f), '\n', "peak_a", len(peaks_a))
+print("peak_f", len(peaks_f), '\n',"peak_a", len(peaks_a))
 diff = []
 y = 0
-while y < len(peaks_a):
+while y < min(len(peaks_a),len(peaks_f)):
     if abs(peaks_a[y][1] - peaks_f[y][1]) < 2.5:
         diff.append(abs(peaks_a[y][1] - peaks_f[y][1]))
         y += 1
