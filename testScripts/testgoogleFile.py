@@ -42,5 +42,5 @@ def play_video():
     actions.perform()
 
 
-launch_appium_driver()
-play_video()
+# launch_appium_driver()
+# play_video()

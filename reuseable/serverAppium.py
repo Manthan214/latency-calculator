@@ -22,3 +22,5 @@ def stop_server():
     # os.system("taskkill /F /IM cmd.exe> C:/Users/Anuj/PycharmProjects/Project(video-audio)/Logs/cmdTerminate_Logs")
 
     #The /F flag is used to forcefully terminate the process, and the /IM flag is used to specify the name of the process to be terminated.
+
+# start_server()

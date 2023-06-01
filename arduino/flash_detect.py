@@ -22,7 +22,7 @@ def arduino():
     """
     # for x in range(10):
 
-    board = [p.device for p in serial.tools.list_ports.comports() if 'USB-SERIAL' in p.description]
+    board = [p.device for p in serial.tools.list_ports.comports() if 'USB Serial'or 'USB-SERIAL' in p.description]
     port = pyfirmata.Arduino(board[0])
     pin = port.get_pin('a:3:i')
     led = port.get_pin('d:8:o')

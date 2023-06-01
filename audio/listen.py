@@ -1,5 +1,5 @@
 import speech_recognition as sr
-# import datetime
+import datetime
 from testScripts import testVideo
 import time
 from reuseable.configs import MobileConfig
@@ -24,13 +24,13 @@ def audio_return():
     a=0
     print("----intilizing the microphone----")
     while True:
-        if a>5:
+        if a>9:
             break
         with m as source:
             r.adjust_for_ambient_noise(source)
+            sound_time = time.time()
             print(r.energy_threshold)
             if r.energy_threshold>=Threshold_value:
-                sound_time = time.time()
                 tup_audio = (r.energy_threshold,sound_time)
                 MobileConfig.audio_det.append(tup_audio)
                 a=0
@@ -97,3 +97,4 @@ def listen():
 # print(p)
 # record(audio_data_my=p)
 # detect(audio_data_my=p)
+# audio_return()
