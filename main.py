@@ -6,7 +6,9 @@ from reuseable import serverAppium
 from testScripts import testgoogleFile
 from reuseable.configs import MobileConfig
 from testScripts import testVideo
+from audio import new
 from audio import listen
+
 import excel_data
 
 # from preRequisites import preSettings
@@ -38,18 +40,22 @@ if __name__ == '__main__':
 
         # print("Starting the thread",i)
         # thread1 = threading.Thread(target=testVideo.play_video)
-        thread1 = threading.Thread(target=testgoogleFile.play_video)
+        testgoogleFile.play_video()
+        time.sleep(1)
+        thread1 = threading.Thread(target=testgoogleFile.pal)
         thread1.start()
-        # thread6 = threading.Thread(target=listen.audio_return)
-        # thread6.start()
+        thread6 = threading.Thread(target=listen.audio_return)
+        thread6.start()
+        # thread6=threading.Thread(target=new.roy)
         thread2 = threading.Thread(target=flash_detect.getArduino, args=(ser, led))
         thread2.start()
+        # thread6.start()
         # testVideo.timeSleep()
         # thread5 = threading.Thread(target=testVideo.pauseVideo)
         # thread5.start()
         # thread5.join()
         thread1.join()
-        # thread6.join()
+        thread6.join()
         thread2.join()
         # thread3.join()
         time.sleep(5)

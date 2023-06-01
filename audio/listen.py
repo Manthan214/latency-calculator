@@ -24,7 +24,7 @@ def audio_return():
     a=0
     print("----intilizing the microphone----")
     while True:
-        if a>9:
+        if a>7:
             break
         with m as source:
             r.adjust_for_ambient_noise(source)
@@ -97,4 +97,6 @@ def listen():
 # print(p)
 # record(audio_data_my=p)
 # detect(audio_data_my=p)
+# print(time.time())
 # audio_return()
+# print(time.time())
