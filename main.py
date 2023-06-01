@@ -37,8 +37,9 @@ if __name__ == '__main__':
         # wb, ws, header_format=excel_data.starting_workbook()
 
         # print("Starting the thread",i)
+        testgoogleFile.play_video()
         # thread1 = threading.Thread(target=testVideo.play_video)
-        thread1 = threading.Thread(target=testgoogleFile.play_video)
+        thread1 = threading.Thread(target=testgoogleFile.start_video)
         thread1.start()
         # thread6 = threading.Thread(target=listen.audio_return)
         # thread6.start()
