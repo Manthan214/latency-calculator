@@ -1,3 +1,4 @@
+import threading
 import time
 
 import serial.tools.list_ports
@@ -8,7 +9,6 @@ import pyfirmata
 lst1 = []
 lst2 = []
 lst3 = []
-
 
 def arduino():
     """
@@ -22,8 +22,7 @@ def arduino():
     """
     # for x in range(10):
 
-    board = [p.device for p in serial.tools.list_ports.comports() if 'USB-SERIAL' in p.description]
-    # print(board)
+    board = [p.device for p in serial.tools.list_ports.comports() if 'USB Serial'or 'USB-SERIAL' in p.description]
     port = pyfirmata.Arduino(board[0])
     pin = port.get_pin('a:3:i')
     led = port.get_pin('d:8:o')
@@ -31,6 +30,7 @@ def arduino():
     it.start()
     output = []
     return pin,led
+
 def getArduino(pin,led):
     """
         Reads data from an Arduino pin and controls an LED based on the readings.
@@ -43,27 +43,25 @@ def getArduino(pin,led):
         """
     y=0
     while True:
-        if y>7:
+        if y>90:
             break
         global start_time
-        start_time=time.time()
         read_out = pin.read()
-        start_time1 = time.time()
-        print(start_time, start_time1)
+        start_time = time.time()
         # print(read_out)
-        time.sleep(1)
+        time.sleep(0.02)
         if read_out is not None:
-            if (read_out>=0):
-                tup_flash=(read_out,start_time)
+            if read_out >= 0:
+                tup_flash = (read_out,start_time)
                 MobileConfig.flash.append(tup_flash)
-                if read_out>0.15:
+                if read_out > 0.15:
                     led.write(1)
                 else:
                     led.write(0)
-                if read_out>0.2:
-                    y+=1
+                if read_out > 0.2:
+                    y += 1
                 else:
-                    y=0
+                    y = 0
                 print("Flash detected :True")
                 print('Timestamp of Flash detected:', start_time)
                 print("Flash detection :", read_out*1000)
@@ -72,6 +70,7 @@ def getArduino(pin,led):
                 # y+=1
 
 
+
 #
-x,l=arduino()
-getArduino(x,l)
+# x,l=arduino()
+# getArduino(x,l)
