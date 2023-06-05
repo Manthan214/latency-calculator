@@ -34,7 +34,7 @@ def play_video():
 
 def start_video():
     driver.find_element(AppiumBy.XPATH, videoLocators.image_video()).click()
-    time.sleep(1)
+    time.sleep(0.5)
     actions = ActionChains(driver)
     actions.w3c_actions = ActionBuilder(driver, mouse=PointerInput(interaction.POINTER_TOUCH, "touch"))
     actions.w3c_actions.pointer_action.move_to_location(377, 727)
@@ -43,6 +43,12 @@ def start_video():
     actions.w3c_actions.pointer_action.release()
     actions.perform()
 
+def timeSleep(a):
+    time.sleep(a)
+
+def pause_video():
+
 
 # launch_appium_driver()
 # play_video()
+# start_video()
