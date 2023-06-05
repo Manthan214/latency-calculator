@@ -22,7 +22,8 @@ def arduino():
     """
     # for x in range(10):
 
-    board = [p.device for p in serial.tools.list_ports.comports() if 'USB Serial'or 'USB-SERIAL' in p.description]
+    board = [p.device for p in serial.tools.list_ports.comports() if 'USB-SERIAL' in p.description]
+    # print(board)
     port = pyfirmata.Arduino(board[0])
     pin = port.get_pin('a:3:i')
     led = port.get_pin('d:8:o')
@@ -47,6 +48,8 @@ def getArduino(pin,led):
         global start_time
         start_time=time.time()
         read_out = pin.read()
+        start_time1 = time.time()
+        print(start_time, start_time1)
         # print(read_out)
         time.sleep(1)
         if read_out is not None:
@@ -70,5 +73,5 @@ def getArduino(pin,led):
 
 
 #
-# x,l=arduino()
-# getArduino(x,l)
+x,l=arduino()
+getArduino(x,l)

@@ -31,6 +31,8 @@ def play_video():
     time.sleep(1)
     driver.find_element(AppiumBy.XPATH, videoLocators.gVideo()).click()
     time.sleep(3)
+
+def start_video():
     driver.find_element(AppiumBy.XPATH, videoLocators.image_video()).click()
     time.sleep(1)
     actions = ActionChains(driver)
