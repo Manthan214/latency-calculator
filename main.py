@@ -7,7 +7,7 @@ from testScripts import testgoogleFile
 from reuseable.configs import MobileConfig
 from testScripts import testVideo
 from audio import new
-from audio import listen
+from audio.listen import audio
 
 import excel_data
 
@@ -44,7 +44,7 @@ if __name__ == '__main__':
         time.sleep(1)
         thread1 = threading.Thread(target=testgoogleFile.pal)
         thread1.start()
-        thread6 = threading.Thread(target=listen.audio_return)
+        thread6 = threading.Thread(target=audio.audio_return)
         thread6.start()
         # thread6=threading.Thread(target=new.roy)
         thread2 = threading.Thread(target=flash_detect.getArduino, args=(ser, led))
