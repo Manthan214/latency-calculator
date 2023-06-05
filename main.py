@@ -6,9 +6,8 @@ from reuseable import serverAppium
 from testScripts import testgoogleFile
 from reuseable.configs import MobileConfig
 from testScripts import testVideo
-from audio import new
-from audio.listen import audio
-
+from audio import listen
+from experiment import data_analysis
 import excel_data
 
 # from preRequisites import preSettings
@@ -44,7 +43,7 @@ if __name__ == '__main__':
         time.sleep(1)
         thread1 = threading.Thread(target=testgoogleFile.pal)
         thread1.start()
-        thread6 = threading.Thread(target=audio.audio_return)
+        thread6 = threading.Thread(target=listen.audio_p)
         thread6.start()
         # thread6=threading.Thread(target=new.roy)
         thread2 = threading.Thread(target=flash_detect.getArduino, args=(ser, led))
@@ -66,7 +65,7 @@ if __name__ == '__main__':
         # excel_data.creating_table(ws, data1, header_format)
         # testVideo.close_app()
         # excel_data.close_workbook(wb)
-
+        data_analysis.data_analy(MobileConfig.flash,MobileConfig.audio_det)
 
     else:
         print("There is an error in code!!")

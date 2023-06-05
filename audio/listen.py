@@ -15,7 +15,7 @@ aud_tup = []
 Threshold_value = 200
 global event
 event=threading.Event()
-class audio():
+class audio(object):
     def adjust(self, event: threading.Event) -> None:
         while True:
             with m as source:
@@ -37,16 +37,16 @@ class audio():
         a = 0
         print("----intilizing the microphone----")
         while True:
-            if a > 40:
+            if a > 1000:
                 event.set()
                 break
 
             sound_time = time.time()
-            # print(r.energy_threshold)
-            time.sleep(0.2)
+            print(r.energy_threshold)
+            time.sleep(0.00002)
             if r.energy_threshold >= Threshold_value:
                 tup_audio = (r.energy_threshold, sound_time)
-                aud_tup.append(tup_audio)
+                MobileConfig.audio_det.append(tup_audio)
                 a = 0
                 print("True")
                 print("----Timestamp of sound detect:", sound_time, "----")
@@ -91,8 +91,8 @@ class audio():
             pass
 
 
-
-if __name__=="__main__":
+def audio_p():
     tt = audio()
     y = threading.Thread(target=tt.adjust,args=(event,))
     y.start()
+    tt.audio_return()

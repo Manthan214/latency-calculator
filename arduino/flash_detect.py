@@ -43,13 +43,13 @@ def getArduino(pin,led):
         """
     y=0
     while True:
-        if y>7:
+        if y>90:
             break
         global start_time
         read_out = pin.read()
         start_time = time.time()
         # print(read_out)
-        time.sleep(1)
+        time.sleep(0.02)
         if read_out is not None:
             if read_out >= 0:
                 tup_flash = (read_out,start_time)
