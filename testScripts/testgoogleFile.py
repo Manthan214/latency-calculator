@@ -33,7 +33,16 @@ def play_video():
     time.sleep(3)
 def pal():
     driver.find_element(AppiumBy.XPATH, videoLocators.image_video()).click()
-    # time.sleep(1)
+
+    actions = ActionChains(driver)
+    actions.w3c_actions = ActionBuilder(driver, mouse=PointerInput(interaction.POINTER_TOUCH, "touch"))
+    actions.w3c_actions.pointer_action.move_to_location(798, 1362)
+    actions.w3c_actions.pointer_action.pointer_down()
+    actions.w3c_actions.pointer_action.move_to_location(166, 1353)
+    actions.w3c_actions.pointer_action.release()
+    actions.perform()
+
+    time.sleep(0.5)
     actions = ActionChains(driver)
     actions.w3c_actions = ActionBuilder(driver, mouse=PointerInput(interaction.POINTER_TOUCH, "touch"))
     actions.w3c_actions.pointer_action.move_to_location(377, 727)
@@ -42,8 +51,31 @@ def pal():
     actions.w3c_actions.pointer_action.release()
     actions.perform()
 
-# print(time.time())
+def timeSleep():
+    time.sleep(12)
+
+def pauseVideo():
+    actions = ActionChains(driver)
+    actions.w3c_actions = ActionBuilder(driver, mouse=PointerInput(interaction.POINTER_TOUCH, "touch"))
+    actions.w3c_actions.pointer_action.move_to_location(549, 1570)
+    actions.w3c_actions.pointer_action.pointer_down()
+    actions.w3c_actions.pointer_action.pause(0.1)
+    actions.w3c_actions.pointer_action.release()
+    actions.perform()
+    time.sleep(0.2)
+    actions = ActionChains(driver)
+    actions.w3c_actions = ActionBuilder(driver, mouse=PointerInput(interaction.POINTER_TOUCH, "touch"))
+    actions.w3c_actions.pointer_action.move_to_location(537, 1555)
+    actions.w3c_actions.pointer_action.pointer_down()
+    actions.w3c_actions.pointer_action.pause(0.1)
+    actions.w3c_actions.pointer_action.release()
+    actions.perform()
+
+
 # launch_appium_driver()
 # print(time.time())
 # play_video()
 # print(time.time())
+# pal()
+# timeSleep()
+# pauseVideo()
