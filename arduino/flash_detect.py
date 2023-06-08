@@ -73,9 +73,9 @@ def getArduino(pin,led):
 
 
 
-#
-x,l=arduino()
-getArduino(x,l)
+
+# x,l=arduino()
+# getArduino(x,l)
 
 
 #

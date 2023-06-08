@@ -1674,7 +1674,7 @@ def latency(f_31_1,a_31_1):
     #     peaks_a.append((scaled_a[0], lst2_t[0]))
     if scaled_a is not None:
         for i in range(1, len(scaled_a) - 1):
-            if lst2_t[i] > lst1_t[0] + 4:
+            if lst2_t[i] > lst1_t[0] + 3:
                 if scaled_a[i] > scaled_a[i - 1] and scaled_a[i] >= scaled_a[i + 1]:
                     if scaled_a[i] > 0.3:
                         if len(peaks_a) > 0:
@@ -1703,7 +1703,7 @@ def latency(f_31_1,a_31_1):
     ui = []
     #     peaks_f.append((scaled_f[0], lst1_t[0]))
     for i in range(1, len(scaled_f) - 1):
-        if lst1_t[i] > lst1_t[0] + 4:
+        if lst1_t[i] > lst1_t[0] + 3:
             if scaled_f[i] > scaled_f[i - 1] and scaled_f[i] >= scaled_f[i + 1]:
                 if scaled_f[i] > 0.3:
                     if len(peaks_f) > 0:
@@ -1766,4 +1766,4 @@ def latency(f_31_1,a_31_1):
 
     fig1.show()
     plt.show()
-latency(f_31_1=f_1,a_31_1=a_1)
+# latency(f_31_1=f_1,a_31_1=a_1)

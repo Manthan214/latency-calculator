@@ -7,7 +7,7 @@ from testScripts import testgoogleFile
 from reuseable.configs import MobileConfig
 from testScripts import testVideo
 from audio import listen
-from experiment import data_analysis
+from experiment import latency_garph
 import excel_data
 
 # from preRequisites import preSettings
@@ -28,8 +28,8 @@ if __name__ == '__main__':
     if x == True:
         try:
             print(simple_colors.blue("----Relauching the application----"))
-            testVideo.launch_appium_driver()
-            # testgoogleFile.launch_appium_driver()
+            # testVideo.launch_appium_driver()
+            testgoogleFile.launch_appium_driver()
         except:
             pass
 
@@ -38,10 +38,10 @@ if __name__ == '__main__':
         # wb, ws, header_format=excel_data.starting_workbook()
 
         # print("Starting the thread",i)
-        thread1 = threading.Thread(target=testVideo.play_video)
-        # testgoogleFile.play_video()
+        # thread1 = threading.Thread(target=testVideo.play_video)
+        testgoogleFile.play_video()
         time.sleep(1)
-        # thread1 = threading.Thread(target=testgoogleFile.pal)
+        thread1 = threading.Thread(target=testgoogleFile.pal)
         thread1.start()
         thread6 = threading.Thread(target=listen.audio_p)
         thread6.start()
@@ -69,7 +69,7 @@ if __name__ == '__main__':
         # excel_data.creating_table(ws, data1, header_format)
         # testVideo.close_app()
         # excel_data.close_workbook(wb)
-        data_analysis.data_analy(MobileConfig.flash,MobileConfig.audio_det)
+        latency_garph.latency(MobileConfig.flash,MobileConfig.audio_det)
 
     else:
         print("There is an error in code!!")

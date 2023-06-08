@@ -6460,12 +6460,6 @@ def data_analy(f_31_1, a_31_1):
     # plt.bar(da['Audio_time'], da['Audio value'], label="audio",color="black",width=0.4)
     #
     # plt.bar(df['flash_time'], df['flash value'], label="flash",color="red",width=0.4)
-    # ax2.xlabel('time')
-    # plt.xlim(1684304600,1684304700)
-    # plt.ylim((-0.2),1.2)
-    # ax2.ylabel('value')
-    # ax2.title('Value Representation')
-    # ax2.legend()
     fig2.show()
     plt.show()
 # print(len(a))
