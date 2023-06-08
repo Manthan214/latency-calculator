@@ -4,6 +4,7 @@ import speech_recognition as sr
 import datetime
 from testScripts import testVideo
 import time
+import keyboard
 from reuseable.configs import MobileConfig
 import simple_colors
 
@@ -39,6 +40,8 @@ class audio(object):
         while True:
             if a > 800:
                 event.set()
+                break
+            elif keyboard.is_pressed('space'):
                 break
 
             sound_time = time.time()
