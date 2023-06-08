@@ -1,6 +1,6 @@
 import threading
 import time
-
+import keyboard
 import serial.tools.list_ports
 from reuseable.configs import MobileConfig
 from testScripts import testVideo
@@ -45,6 +45,8 @@ def getArduino(pin,led):
     while True:
         if y>500:
             break
+        elif keyboard.is_pressed('space'):
+            break
         global start_time
         read_out = pin.read()
         start_time = time.time()
@@ -72,8 +74,8 @@ def getArduino(pin,led):
 
 
 #
-# x,l=arduino()
-# getArduino(x,l)
+x,l=arduino()
+getArduino(x,l)
 
 
 #
