@@ -32,8 +32,7 @@ if __name__ == '__main__':
             testgoogleFile.launch_appium_driver()
         except:
             pass
-
-        # pin,port=flash_detect.arduino()
+         # pin,port=flash_detect.arduino()
         data1 = []
         # wb, ws, header_format=excel_data.starting_workbook()
 

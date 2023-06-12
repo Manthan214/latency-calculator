@@ -33,6 +33,8 @@ class audio(object):
                 r.adjust_for_ambient_noise(source)
             if event.is_set():
                 break
+            elif keyboard.is_pressed('space'):
+                break
 
 
     def audio_return(self):

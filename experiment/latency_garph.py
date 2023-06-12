@@ -111,20 +111,33 @@ def latency(f_31_1,a_31_1):
     y = 0
     while y < min(len(peaks_a),len(peaks_f)):
 
-        if abs(peaks_a[y][1] - peaks_f[y][1]) < 50:
+        if abs(peaks_a[y][1] - peaks_f[y][1]) >2:
+            if abs(peaks_a[y+1][1] - peaks_f[y][1])<2:
+                diff.append(abs(peaks_a[y+1][1] - peaks_f[y][1]))
+                y+=1
+            elif abs(peaks_a[y][1] - peaks_f[y+1][1])<2:
+                diff.append(abs(peaks_a[y][1] - peaks_f[y+1][1]))
+                y+=1
+        elif abs(peaks_a[y][1] - peaks_f[y][1])<2:
             diff.append(abs(peaks_a[y][1] - peaks_f[y][1]))
-            y += 1
+            y+=1
+        elif y > min(len(peaks_a),len(peaks_f)):
+            break
 
-        elif abs(peaks_a[y][1] - peaks_f[y][1]) < 50:
-
-            diff.append(abs(peaks_a[y][1] - peaks_f[y][1]))
-            y += 1
-        elif abs(peaks_a[y][1] - peaks_f[y][1]) > 50:
-            if len(diff) > 5:
-                break
-            else : pass
-        else:
-            pass
+        # if abs(peaks_a[y][1] - peaks_f[y][1]) < 50:
+        #     diff.append(abs(peaks_a[y][1] - peaks_f[y][1]))
+        #     y += 1
+        #
+        # elif abs(peaks_a[y][1] - peaks_f[y][1]) < 50:
+        #
+        #     diff.append(abs(peaks_a[y][1] - peaks_f[y][1]))
+        #     y += 1
+        # elif abs(peaks_a[y][1] - peaks_f[y][1]) > 50:
+        #     if len(diff) > 5:
+        #         break
+        #     else : pass
+        # else:
+        #     pass
     print(diff)
 
     p = 0
