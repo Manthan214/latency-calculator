@@ -7,7 +7,7 @@ from testScripts import testgoogleFile
 from reuseable.configs import MobileConfig
 from testScripts import testVideo
 from audio import listen
-from experiment import latency_garph
+from experiment import latency_garph,data_analysis
 import excel_data
 
 # from preRequisites import preSettings
@@ -69,6 +69,7 @@ if __name__ == '__main__':
         # excel_data.creating_table(ws, data1, header_format)
         # testVideo.close_app()
         # excel_data.close_workbook(wb)
+        # data_analysis.data_analy(MobileConfig.flash,MobileConfig.audio_det)
         latency_garph.latency(MobileConfig.flash,MobileConfig.audio_det)
 
     else:
