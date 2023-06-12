@@ -23,3 +23,4 @@ def stop_server():
 
     #The /F flag is used to forcefully terminate the process, and the /IM flag is used to specify the name of the process to be terminated.
 
+# start_server()
