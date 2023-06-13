@@ -45,14 +45,7 @@ def latency(f_31_1, a_31_1):
         max_v_a = max(lst2_v)
         for _ in lst2_v:
             scaled_a.append(_ / max_v_a)
-    flash_data = {'flash value': scaled_f, 'flash_time': lst1_t}
-    audio_data = {'Audio value': scaled_a, 'Audio_time': lst2_t}
-    fdata = pd.DataFrame(flash_data)
-    adata = pd.DataFrame(audio_data)
-    writer = pd.ExcelWriter('raw_data.xlsx', engine='xlsxwriter')
-    fdata.to_excel(writer, sheet_name='Flash', index=False)
-    adata.to_excel(writer, sheet_name='Audio', index=False)
-    writer.close()
+
 
     peaks_a = []
     ui = []
@@ -109,23 +102,45 @@ def latency(f_31_1, a_31_1):
 
     # print("peak_f", len(peaks_f), '\n', "peak_a", len(peaks_a))
     diff = []
+    scaled_a=[]
+    scaled_f=[]
+    lst1_t=[]
+    lst2_t=[]
     y = 0
     while y < min(len(peaks_a), len(peaks_f)):
 
         if abs(peaks_a[y][1] - peaks_f[y][1]) > 2:
             if abs(peaks_a[y + 1][1] - peaks_f[y][1]) < 2:
                 diff.append(abs(peaks_a[y + 1][1] - peaks_f[y][1]))
+                scaled_a.append(peaks_a[y+1][0])
+                scaled_f.append(peaks_f[y][0])
+                lst1_t.append(peaks_f[y][1])
+                lst2_t.append(peaks_a[y+1][1])
                 y += 1
             elif abs(peaks_a[y][1] - peaks_f[y + 1][1]) < 2:
                 diff.append(abs(peaks_a[y][1] - peaks_f[y + 1][1]))
+                scaled_a.append(peaks_a[y][0])
+                scaled_f.append(peaks_f[y+1][0])
+                lst1_t.append(peaks_f[y+1][1])
+                lst2_t.append(peaks_a[y][1])
                 y += 1
         elif abs(peaks_a[y][1] - peaks_f[y][1]) < 2:
             diff.append(abs(peaks_a[y][1] - peaks_f[y][1]))
+            scaled_a.append(peaks_a[y][0])
+            scaled_f.append(peaks_f[y][0])
+            lst1_t.append(peaks_f[y][1])
+            lst2_t.append(peaks_a[y][1])
             y += 1
         elif y > min(len(peaks_a), len(peaks_f)):
             break
 
     # print(diff)
+
+    flash_data = {'flash value': scaled_f, 'flash_time': lst1_t , 'Audio value': scaled_a, 'Audio_time': lst2_t, 'Latency':diff}
+    fdata = pd.DataFrame(flash_data)
+    writer = pd.ExcelWriter('Latency_Data.xlsx', engine='xlsxwriter')
+    fdata.to_excel(writer, sheet_name='Data', index=False)
+    writer.close()
 
     p = 0
     c = 0
