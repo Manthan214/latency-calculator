@@ -46,7 +46,6 @@ def data_analy(f_31_1, a_31_1):
     max_time = max(max(lst1_t), max(lst2_t))
     print("min_time", min_time)
     print("max_time", max_time)
-    flash_new = []
     a = max(len(lst2_t), len(lst1_t))
     print("diff", round((max_time - min_time) / 5))
     print(a)

@@ -8,6 +8,7 @@ lst1 = []
 lst2 = []
 lst3 = []
 
+
 def arduino():
     """
     Connects to an Arduino board and returns a pin and LED object.
@@ -25,9 +26,10 @@ def arduino():
     led = port.get_pin('d:8:o')
     it = pyfirmata.util.Iterator(port)
     it.start()
-    return pin,led
+    return pin, led
 
-def getArduino(pin,led):
+
+def getArduino(pin, led):
     """
         Reads data from an Arduino pin and controls an LED based on the readings.
 
@@ -37,9 +39,9 @@ def getArduino(pin,led):
 
 
         """
-    y=0
+    y = 0
     while True:
-        if y>500:
+        if y > 500:
             break
         elif keyboard.is_pressed('space'):
             break
@@ -49,7 +51,7 @@ def getArduino(pin,led):
         time.sleep(0.02)
         if read_out is not None:
             if read_out >= 0:
-                tup_flash = (read_out,start_time)
+                tup_flash = (read_out, start_time)
                 MobileConfig.flash.append(tup_flash)
                 if read_out > 0.15:
                     led.write(1)
@@ -61,13 +63,9 @@ def getArduino(pin,led):
                     y = 0
                 print("Flash detected :True")
                 print('Timestamp of Flash detected:', start_time)
-                print("Flash detection :", read_out*1000)
+                print("Flash detection :", read_out * 1000)
             else:
                 led.write(0)
 
-
-
-
 # x,l=arduino()
 # getArduino(x,l)
-

@@ -4,9 +4,9 @@ import time
 import simple_colors
 
 from arduino import flash_detect
-from audio import listen
 from reuseable import serverAppium
 from testScripts import testVideo
+
 
 def pre_req():
     """

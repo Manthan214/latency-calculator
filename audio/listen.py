@@ -48,7 +48,7 @@ class audio(object):
         IOError: If there is an issue with the microphone.
         """
         a = 0
-        print("----intilizing the microphone----")
+        print("----Initializing microphone----")
         while True:
             if a > 800:
                 event.set()
