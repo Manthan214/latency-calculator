@@ -25,7 +25,7 @@ if __name__ == '__main__':
     except:
         x = False
         print(simple_colors.red("----Pre settings has failed!----"))
-    if x:
+    if x== True :
         try:
             print(simple_colors.blue("----Relauching the application----"))
             # testVideo.launch_appium_driver()
@@ -48,6 +48,7 @@ if __name__ == '__main__':
         # thread5 = threading.Thread(target= testgoogleFile.pauseVideo)
         # thread5.start()
         # thread5.join()
+
         # testVideo.timeSleep()
         # thread5 = threading.Thread(target=testVideo.pauseVideo)
         # thread5.start()
