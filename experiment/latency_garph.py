@@ -1,7 +1,8 @@
 import matplotlib.pyplot as plt
 import pandas as pd
 
-def latency(f_31_1,a_31_1):
+
+def latency(f_31_1, a_31_1):
     """Calculate latency and generate a latency plot.
 
     This function takes in two lists of data, `f_31_1` and `a_31_1`, calculates the latency between peaks in the data, and generates a latency plot using matplotlib.
@@ -24,33 +25,26 @@ def latency(f_31_1,a_31_1):
             lst1_v.append(i[0])
             lst1_t.append(i[1])
             threshold_f.append(0.5)
-    print(len(lst1_v), "flash")
-    if a_31_1 is None:pass
+    # print(len(lst1_v), "flash")
+    if a_31_1 is None:
+        pass
     else:
         for j in a_31_1:
             if j:
                 lst2_v.append(j[0])
                 lst2_t.append(j[1])
                 threshold_a.append(0.25)
-        print(len(lst2_v), "audio")
+        # print(len(lst2_v), "audio")
 
     max_v_f = max(lst1_v)
     scaled_f = []
     scaled_a = []
     for _ in lst1_v:
         scaled_f.append(_ / max_v_f)
-    if len(lst2_v)>0 :
+    if len(lst2_v) > 0:
         max_v_a = max(lst2_v)
         for _ in lst2_v:
             scaled_a.append(_ / max_v_a)
-    flash_data = {'flash value': scaled_f, 'flash_time': lst1_t}
-    audio_data = {'Audio value': scaled_a, 'Audio_time': lst2_t}
-    fdata = pd.DataFrame(flash_data)
-    adata = pd.DataFrame(audio_data)
-    writer = pd.ExcelWriter('raw_data.xlsx', engine='xlsxwriter')
-    fdata.to_excel(writer, sheet_name='Flash', index=False)
-    adata.to_excel(writer, sheet_name='Audio', index=False)
-    writer.close()
 
 
     peaks_a = []
@@ -78,7 +72,7 @@ def latency(f_31_1,a_31_1):
                         else:
                             peaks_a.append((scaled_a[i], lst2_t[i]))
     # Display local peaks
-    print("Local peaks:", peaks_a)
+    # print("Local peaks:", peaks_a)
     # Find local peaks
     peaks_f = []
     ui = []
@@ -104,44 +98,69 @@ def latency(f_31_1,a_31_1):
                     else:
                         peaks_f.append((scaled_f[i], lst1_t[i]))
     # Display local peaks
-    print("Local peaks:", peaks_f)
+    # print("Local peaks:", peaks_f)
 
-    print("peak_f", len(peaks_f), '\n',"peak_a", len(peaks_a))
+    # print("peak_f", len(peaks_f), '\n', "peak_a", len(peaks_a))
     diff = []
+    scaled_a=[]
+    scaled_f=[]
+    lst1_t=[]
+    lst2_t=[]
     y = 0
-    while y < min(len(peaks_a),len(peaks_f)):
+    while y < min(len(peaks_a), len(peaks_f)):
 
-        if abs(peaks_a[y][1] - peaks_f[y][1]) < 50:
+        if abs(peaks_a[y][1] - peaks_f[y][1]) > 2:
+            if abs(peaks_a[y + 1][1] - peaks_f[y][1]) < 2:
+                diff.append(abs(peaks_a[y + 1][1] - peaks_f[y][1]))
+                scaled_a.append(peaks_a[y+1][0])
+                scaled_f.append(peaks_f[y][0])
+                lst1_t.append(peaks_f[y][1])
+                lst2_t.append(peaks_a[y+1][1])
+                y += 1
+            elif abs(peaks_a[y][1] - peaks_f[y + 1][1]) < 2:
+                diff.append(abs(peaks_a[y][1] - peaks_f[y + 1][1]))
+                scaled_a.append(peaks_a[y][0])
+                scaled_f.append(peaks_f[y+1][0])
+                lst1_t.append(peaks_f[y+1][1])
+                lst2_t.append(peaks_a[y][1])
+                y += 1
+        elif abs(peaks_a[y][1] - peaks_f[y][1]) < 2:
             diff.append(abs(peaks_a[y][1] - peaks_f[y][1]))
+            scaled_a.append(peaks_a[y][0])
+            scaled_f.append(peaks_f[y][0])
+            lst1_t.append(peaks_f[y][1])
+            lst2_t.append(peaks_a[y][1])
             y += 1
+        elif y > min(len(peaks_a), len(peaks_f)):
+            break
 
-        elif abs(peaks_a[y][1] - peaks_f[y][1]) < 50:
+    # print(diff)
 
-            diff.append(abs(peaks_a[y][1] - peaks_f[y][1]))
-            y += 1
-        elif abs(peaks_a[y][1] - peaks_f[y][1]) > 50:
-            if len(diff) > 5:
-                break
-            else : pass
-        else:
-            pass
-    print(diff)
+    flash_data = {'flash value': scaled_f, 'flash_time': lst1_t , 'Audio value': scaled_a, 'Audio_time': lst2_t, 'Latency':diff}
+    fdata = pd.DataFrame(flash_data)
+    writer = pd.ExcelWriter('Latency_Data.xlsx', engine='xlsxwriter')
+    fdata.to_excel(writer, sheet_name='Data', index=False)
+    writer.close()
 
     p = 0
-    c=0
+    c = 0
     for _ in range(len(diff)):
         if diff[_] < 2:
             p += diff[_]
-            c+=1
-    print(p / c)
+            c += 1
+    if c > 0:
+        # print(p / c)
+        print((p/c) * 1000 ," milliseconds")
+    else:
+        print(0)
     x = [x for x in range(len(diff))]
     # # Plot the graph
-    fig1=plt.figure()
-    ax1=fig1.add_subplot(111)
-    ax1.bar(x, diff, color='blue',
+    plt.bar(x, diff, color='blue',
             width=0.4)
-    ax1.plot(x, diff, color='green')
-
-    fig1.show()
+    plt.plot(x, diff, color='green')
+    plt.title("Latency Graph")
+    plt.xlabel("Number of iterations")
+    plt.ylabel("Time (in milliseconds)")
+    # fig1.show()
     plt.show()
 # latency(f_31_1=f_1,a_31_1=a_1)

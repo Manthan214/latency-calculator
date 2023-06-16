@@ -33,6 +33,8 @@ class audio(object):
                 r.adjust_for_ambient_noise(source)
             if event.is_set():
                 break
+            elif keyboard.is_pressed('space'):
+                break
 
 
     def audio_return(self):
@@ -46,7 +48,7 @@ class audio(object):
         IOError: If there is an issue with the microphone.
         """
         a = 0
-        print("----intilizing the microphone----")
+        print("----Initializing microphone----")
         while True:
             if a > 800:
                 event.set()

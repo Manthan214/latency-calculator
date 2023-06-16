@@ -1,6 +1,6 @@
 import subprocess
 import time
-import os
+
 # a=int(input("Enter how many seconds you want to play the video: "))
 subprocess.call(["adb", "devices"])
 
