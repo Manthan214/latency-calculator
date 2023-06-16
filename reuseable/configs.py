@@ -9,6 +9,13 @@ class MobileConfig:
 
 
     def get_device_udid(self):
+        """Get the UDID of the connected Android device using ADB.
+
+        This method uses ADB (Android Debug Bridge) to retrieve the UDID (Unique Device Identifier) of the connected Android device. It runs the 'adb devices -l' command and parses the output to find the UDID.
+
+        Returns:
+            str or None: The UDID of the connected Android device, or None if no device is connected or if the UDID cannot be determined.
+        """
         cmd = "adb devices -l"
         output = subprocess.check_output(cmd.split())
         devices = output.decode().strip().split("\n")[1:]
@@ -21,6 +28,13 @@ class MobileConfig:
         return None
 
     def get_android_version(self):
+        """Get the Android version of the connected device using ADB.
+
+        This method uses ADB (Android Debug Bridge) to retrieve the Android version of the connected device. It runs the 'adb shell getprop ro.build.version.release' command and captures the output, which represents the Android version.
+
+        Returns:
+            str: The Android version of the connected device.
+        """
         cmd = "adb shell getprop ro.build.version.release"
         output = subprocess.check_output(cmd.split())
         version = output.decode().strip()

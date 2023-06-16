@@ -1,7 +1,4 @@
 import moviepy.editor
-from os import path
-from pydub import AudioSegment
-import subprocess
 
 
 def Vid_2_Aud():

@@ -38,7 +38,6 @@ def start_record():
     print('Timestamp of Record:', a_current_time)
 
 
-
 def audio_click():
     """
     Performs click action and opens the audio window in vlc and clicks on the audio file
@@ -59,6 +58,7 @@ def audio_click():
     actions.perform()
     # time.sleep(10)
 
+
 def audio_pause():
     """
     Performs click action to pause the audio being played
@@ -75,6 +75,7 @@ def audio_pause():
     actions.perform()
     time.sleep(2)
     driver.back()
+
 
 # Playing video in VLC player
 def play_video():
@@ -120,10 +121,11 @@ def pauseVideo():
     actions.w3c_actions.pointer_action.release()
     actions.perform()
     c_current_time = time.time()
-    dict["Video_pause"]=str(c_current_time)[6:]
+    dict["Video_pause"] = str(c_current_time)[6:]
     print('Timestamp of Pause:', c_current_time)
 
     driver.back()
+
 
 def stop_record():
     """
@@ -148,6 +150,3 @@ def close_app():
     """ Closes the appium driver and quits the app."""
     driver.quit()
     print("Driver quit")
-
-
-
