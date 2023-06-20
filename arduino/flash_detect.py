@@ -41,7 +41,7 @@ def getArduino(pin, led):
         """
     y = 0
     while True:
-        if y > 500:
+        if y > 800:
             break
         elif keyboard.is_pressed('space'):
             break
