@@ -60,65 +60,65 @@ def latency(f_31_1, a_31_1):
         for _ in lst2_v:
             scaled_a.append(_ / max_v_a)
 
-    # peaks_a = []
-    # ui = []
-    # if scaled_a is not None:
-    #     for i in range(1, len(scaled_a) - 1):
-    #         if lst2_t[i] > lst1_t[0] + 3:
-    #             if scaled_a[i] > scaled_a[i - 1] and scaled_a[i] >= scaled_a[i + 1]:
-    #                 if scaled_a[i] > 0.3:
-    #                     if len(peaks_a) > 0:
-    #                         if abs(peaks_a[len(peaks_a) - 1][1] - lst2_t[i]) < 2:
-    #                             ui.append((scaled_a[i], lst2_t[i]))
-    #                             # print(ui)
-    #                         if abs(peaks_a[len(peaks_a) - 1][1] - lst2_t[i]) > 2:
-    #                             if len(ui) > 0:
-    #                                 if ui[0] in peaks_a:
-    #                                     pass
-    #                                 else:
-    #                                     if len(peaks_a) > 0:
-    #                                         peaks_a[len(peaks_a) - 1] = ui[0]
-    #                                     else:
-    #                                         peaks_a.append(ui[0])
-    #                                         ui = []
-    #                             peaks_a.append((scaled_a[i], lst2_t[i]))
-    #                     else:
-    #                         peaks_a.append((scaled_a[i], lst2_t[i]))
-    # # Display local peaks
-    # # print("Local peaks:", peaks_a)
-    # # Find local peaks
-    # peaks_f = []
-    # ui = []
-    # for i in range(1, len(scaled_f) - 1):
-    #     if lst1_t[i] > lst1_t[0] + 3:
-    #         if scaled_f[i] > scaled_f[i - 1] and scaled_f[i] >= scaled_f[i + 1]:
-    #             if scaled_f[i] > 0.3:
-    #                 if len(peaks_f) > 0:
-    #                     if abs(peaks_f[len(peaks_f) - 1][1] - lst1_t[i]) < 2:
-    #                         ui.append((scaled_f[i], lst1_t[i]))
-    #                         # print(ui)
-    #                     if abs(peaks_f[len(peaks_f) - 1][1] - lst1_t[i]) > 2:
-    #                         if len(ui) > 0:
-    #                             if ui[0] in peaks_f:
-    #                                 pass
-    #                             else:
-    #                                 if len(peaks_f) > 0:
-    #                                     peaks_f[len(peaks_f) - 1] = ui[0]
-    #                                 else:
-    #                                     peaks_f.append(ui[0])
-    #                                     ui = []
-    #                         peaks_f.append((scaled_f[i], lst1_t[i]))
-    #                 else:
-    #                     peaks_f.append((scaled_f[i], lst1_t[i]))
+    peaks_a = []
+    ui = []
+    if scaled_a is not None:
+        for i in range(1, len(scaled_a) - 1):
+            if lst2_t[i] > lst1_t[0] + 3:
+                if scaled_a[i] > scaled_a[i - 1] and scaled_a[i] >= scaled_a[i + 1]:
+                    if scaled_a[i] > 0.3:
+                        if len(peaks_a) > 0:
+                            if abs(peaks_a[len(peaks_a) - 1][1] - lst2_t[i]) < 2:
+                                ui.append((scaled_a[i], lst2_t[i]))
+                                # print(ui)
+                            if abs(peaks_a[len(peaks_a) - 1][1] - lst2_t[i]) > 2:
+                                if len(ui) > 0:
+                                    if ui[0] in peaks_a:
+                                        pass
+                                    else:
+                                        if len(peaks_a) > 0:
+                                            peaks_a[len(peaks_a) - 1] = ui[0]
+                                        else:
+                                            peaks_a.append(ui[0])
+                                            ui = []
+                                peaks_a.append((scaled_a[i], lst2_t[i]))
+                        else:
+                            peaks_a.append((scaled_a[i], lst2_t[i]))
+    # Display local peaks
+    # print("Local peaks:", peaks_a)
+    # Find local peaks
+    peaks_f = []
+    ui = []
+    for i in range(1, len(scaled_f) - 1):
+        if lst1_t[i] > lst1_t[0] + 3:
+            if scaled_f[i] > scaled_f[i - 1] and scaled_f[i] >= scaled_f[i + 1]:
+                if scaled_f[i] > 0.3:
+                    if len(peaks_f) > 0:
+                        if abs(peaks_f[len(peaks_f) - 1][1] - lst1_t[i]) < 2:
+                            ui.append((scaled_f[i], lst1_t[i]))
+                            # print(ui)
+                        if abs(peaks_f[len(peaks_f) - 1][1] - lst1_t[i]) > 2:
+                            if len(ui) > 0:
+                                if ui[0] in peaks_f:
+                                    pass
+                                else:
+                                    if len(peaks_f) > 0:
+                                        peaks_f[len(peaks_f) - 1] = ui[0]
+                                    else:
+                                        peaks_f.append(ui[0])
+                                        ui = []
+                            peaks_f.append((scaled_f[i], lst1_t[i]))
+                    else:
+                        peaks_f.append((scaled_f[i], lst1_t[i]))
     # Display local peaks
     # print("Local peaks:", peaks_f)
-
+    #
     # print("peak_f", len(peaks_f), '\n', "peak_a", len(peaks_a))
     # print(scaled_f,"scaled_f",scaled_a,"scaled_a")
-    peaks_a=calculation(scaled_a,lst2_t)
-    peaks_f = calculation(scaled_f,lst1_t)
-    print("peak_f",peaks_f)
-    print("peak_a",peaks_a)
+    # peaks_a=calculation(scaled_a,lst2_t)
+    # peaks_f = calculation(scaled_f,lst1_t)
+    # print("peak_f",peaks_f)
+    # print("peak_a",peaks_a)
     diff = []
     scaled_a = []
     scaled_f = []

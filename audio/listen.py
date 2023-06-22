@@ -54,6 +54,7 @@ class audio(object):
                 event.set()
                 break
             elif keyboard.is_pressed('space'):
+                event.set()
                 break
 
             sound_time = time.time()
