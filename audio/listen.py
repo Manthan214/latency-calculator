@@ -106,7 +106,7 @@ class audio(object):
 
 
 def audio_p():
-    tt = audio()
+    tt = audio() 
     y = threading.Thread(target=tt.adjust,args=(event,))
     y.start()
     tt.audio_return()

@@ -58,8 +58,8 @@ if __name__ == '__main__':
         thread2.join()
         # thread3.join()
         time.sleep(5)
-        print("Flash = ", MobileConfig.flash)
-        print("Audio = ", MobileConfig.audio_det)
+        # print("Flash = ", MobileConfig.flash)
+        # print("Audio = ", MobileConfig.audio_det)
 
         # data_analysis.data_analy(MobileConfig.flash,MobileConfig.audio_det)
         latency_garph.latency(MobileConfig.flash, MobileConfig.audio_det)
