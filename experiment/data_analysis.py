@@ -80,4 +80,4 @@ def data_analy(f_31_1, a_31_1):
     fig2.show()
     plt.show()
 
-data_analy(Flash,Audio)
+# data_analy(Flash,Audio)
