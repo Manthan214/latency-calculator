@@ -40,19 +40,19 @@ def getArduino(pin, led):
 
         """
     y = 0
-    while True:
-        if y > 800:
-            break
-        elif keyboard.is_pressed('space'):
-            break
+    while keyboard.is_pressed('space') == False:
         global start_time
         read_out = pin.read()
         start_time = time.time()
-        time.sleep(0.02)
+        # time.sleep(0.02)
         if read_out is not None:
             if read_out >= 0:
                 tup_flash = (read_out, start_time)
-                MobileConfig.flash.append(tup_flash)
+                if len(MobileConfig.flash)>0:
+                    if start_time - ((len(MobileConfig.flash)-1)[1])>=2:
+                        MobileConfig.flash.append(tup_flash)
+                else:
+                    MobileConfig.flash.append(tup_flash)
                 if read_out > 0.15:
                     led.write(1)
                 else:
