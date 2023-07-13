@@ -1,4 +1,5 @@
 import threading
+from pydub import AudioSegment
 
 import speech_recognition as sr
 from testScripts import testVideo
@@ -14,6 +15,8 @@ aud_tup = []
 Threshold_value = 200
 global event
 event=threading.Event()
+audio_data_t = []
+audio_data_v =[]
 class audio(object):
     def adjust(self, event: threading.Event) -> None:
         """
@@ -49,11 +52,9 @@ class audio(object):
         """
         a = 0
         print("----Initializing microphone----")
-        while True:
+        while keyboard.is_pressed('space') == False:
             if a > 800:
                 event.set()
-                break
-            elif keyboard.is_pressed('space'):
                 break
 
             sound_time = time.time()
@@ -61,7 +62,13 @@ class audio(object):
             time.sleep(0.00002)
             if r.energy_threshold >= Threshold_value:
                 tup_audio = (r.energy_threshold, sound_time)
-                MobileConfig.audio_det.append(tup_audio)
+                if len(MobileConfig.audio_det)>0:
+                    if sound_time-((len(MobileConfig.audio_det)-1)[1])>=2:
+                        MobileConfig.audio_det.append(tup_audio)
+                else:
+                    MobileConfig.audio_det.append(tup_audio)
+
+
                 a = 0
                 print("True")
                 print("----Timestamp of sound detect:", sound_time, "----")
