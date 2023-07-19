@@ -33,7 +33,7 @@ class audio(object):
                 r.adjust_for_ambient_noise(source)
             if event.is_set():
                 break
-            elif keyboard.is_pressed('space'):
+            elif keyboard.is_pressed('insert'):
                 break
 
 
@@ -50,16 +50,17 @@ class audio(object):
         a = 0
         print("----Initializing microphone----")
         while True:
-            if a > 800:
-                event.set()
-                break
-            elif keyboard.is_pressed('space'):
+            # if a > 800:
+            #     event.set()
+            #     break
+            if keyboard.is_pressed('insert'):
                 event.set()
                 break
 
+            # time.sleep(0.011)
+            # time.sleep(0.00002)
             sound_time = time.time()
             print(r.energy_threshold)
-            time.sleep(0.00002)
             if r.energy_threshold >= Threshold_value:
                 tup_audio = (r.energy_threshold, sound_time)
                 MobileConfig.audio_det.append(tup_audio)
@@ -111,3 +112,4 @@ def audio_p():
     y.start()
     tt.audio_return()
 
+# audio_p()
