@@ -131,7 +131,7 @@ def latency(f_31_1, a_31_1):
     lst2_t = []
     y = 0
     min1=min(len(peaks_a), len(peaks_f))
-    while y < min1-1:
+    while y < min1:
 
         if y + 1<len(peaks_a) and abs(peaks_a[y][1] - peaks_f[y][1]) > 2:
             if abs(peaks_a[y + 1][1] - peaks_f[y][1]) < 2:
