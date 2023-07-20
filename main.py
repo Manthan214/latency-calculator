@@ -5,7 +5,7 @@ import simple_colors
 
 from arduino import flash_detect
 from audio import listen
-from experiment import latency_garph, data_analysis
+from experiment import latency_garph, data_analysis,ele
 from reuseable import serverAppium
 from reuseable.configs import MobileConfig
 from testScripts import testgoogleFile
@@ -34,7 +34,8 @@ if __name__ == '__main__':
 
         testgoogleFile.play_video()
         time.sleep(1)
-        thread6 = threading.Thread(target=listen.audio_p)
+        # thread6 = threading.Thread(target=listen.audio_p)
+        thread6=threading.Thread(target=ele.get_microphone_sound_intensity)
         thread6.start()
         thread1 = threading.Thread(target=testgoogleFile.pal)
         thread1.start()

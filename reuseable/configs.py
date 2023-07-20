@@ -2,7 +2,7 @@ import subprocess
 global udid
 
 class MobileConfig:
-    port = 4725
+    port = 4723
     IP = "0.0.0.0"
     flash=[]
     audio_det=[]

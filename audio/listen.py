@@ -58,7 +58,7 @@ class audio(object):
                 break
 
             # time.sleep(0.011)
-            # time.sleep(0.00002)
+            time.sleep(0.00002)
             sound_time = time.time()
             print(r.energy_threshold)
             if r.energy_threshold >= Threshold_value:
