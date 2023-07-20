@@ -6,7 +6,7 @@ import pandas as pd
 def calculation(a, b):
     peak = []
     for i in range(len(a)):
-        if b[i] > b[0] + 3:
+        if b[i] > b[0] + 2:
             if a[i] >= 0.2:
                 if len(peak) > 0:
                     if abs(peak[len(peak) - 1][1] - b[i]) > 3:
@@ -17,7 +17,7 @@ def calculation(a, b):
 def calculation_a(a, b):
     peak = []
     for i in range(len(a)):
-        if b[i] > b[0] + 3:
+        if b[i] > b[0] + 2:
             if a[i] >= 0.15:
                 if len(peak) > 0:
                     if abs(peak[len(peak) - 1][1] - b[i]) > 3:
@@ -130,9 +130,10 @@ def latency(f_31_1, a_31_1):
     lst1_t = []
     lst2_t = []
     y = 0
-    while y < min(len(peaks_a), len(peaks_f)):
+    min1=min(len(peaks_a), len(peaks_f))
+    while y < min1-1:
 
-        if abs(peaks_a[y][1] - peaks_f[y][1]) > 2:
+        if y + 1<len(peaks_a) and abs(peaks_a[y][1] - peaks_f[y][1]) > 2:
             if abs(peaks_a[y + 1][1] - peaks_f[y][1]) < 2:
                 diff.append(abs(peaks_a[y + 1][1] - peaks_f[y][1]))
                 scaled_a.append(peaks_a[y + 1][0])
@@ -140,7 +141,7 @@ def latency(f_31_1, a_31_1):
                 lst1_t.append(peaks_f[y][1])
                 lst2_t.append(peaks_a[y + 1][1])
                 y += 1
-            elif abs(peaks_a[y][1] - peaks_f[y + 1][1]) < 2:
+            elif y + 1< len(peaks_f) and abs(peaks_a[y][1] - peaks_f[y + 1][1]) < 2:
                 diff.append(abs(peaks_a[y][1] - peaks_f[y + 1][1]))
                 scaled_a.append(peaks_a[y][0])
                 scaled_f.append(peaks_f[y + 1][0])
