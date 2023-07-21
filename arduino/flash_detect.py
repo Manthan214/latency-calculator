@@ -42,7 +42,7 @@ def getArduino(pin, led):
         if keyboard.is_pressed('insert'):
             break
         # time.sleep(0.016)
-        # time.sleep(0.025)
+        time.sleep(0.025)
         # time.sleep(0.01)
         global start_time
         read_out = pin.read()

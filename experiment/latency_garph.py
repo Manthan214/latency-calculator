@@ -7,7 +7,7 @@ def calculation(a, b):
     peak = []
     for i in range(len(a)):
         if b[i] > b[0] + 2:
-            if a[i] >= 0.2:
+            if a[i] > 0.2:
                 if len(peak) > 0:
                     if abs(peak[len(peak) - 1][1] - b[i]) > 3:
                         peak.append((a[i], b[i]))
@@ -18,7 +18,7 @@ def calculation_a(a, b):
     peak = []
     for i in range(len(a)):
         if b[i] > b[0] + 2:
-            if a[i] >= 0.15:
+            if a[i] > 0.15:
                 if len(peak) > 0:
                     if abs(peak[len(peak) - 1][1] - b[i]) > 3:
                         peak.append((a[i], b[i]))

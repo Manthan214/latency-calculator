@@ -35,7 +35,7 @@ if __name__ == '__main__':
         testgoogleFile.play_video()
         time.sleep(1)
         # thread6 = threading.Thread(target=listen.audio_p)
-        thread6=threading.Thread(target=ele.get_microphone_sound_intensity)
+        thread6=threading.Thread(target=ele.audio_intensity)
         thread6.start()
         thread1 = threading.Thread(target=testgoogleFile.pal)
         thread1.start()
