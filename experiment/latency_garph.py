@@ -4,6 +4,16 @@ import pandas as pd
 
 
 def calculation(a, b):
+    """
+      Detects peaks in the input data and returns a list of tuples containing peak values and corresponding b-values.
+
+      Parameters:
+          a (list): List of numeric values representing data.
+          b (list): List of numeric values representing data.
+
+      Returns:
+          list: A list of tuples with peak values from 'a' and corresponding values from 'b'.
+      """
     peak = []
     for i in range(len(a)):
         if b[i] > b[0] + 2:
@@ -69,56 +79,7 @@ def latency(f_31_1, a_31_1):
         for _ in lst2_v:
             scaled_a.append(_ / max_v_a)
 
-    # peaks_a = []
-    # ui = []
-    # if scaled_a is not None:
-    #     for i in range(1, len(scaled_a) - 1):
-    #         if lst2_t[i] > lst1_t[0] + 3:
-    #             if scaled_a[i] > scaled_a[i - 1] and scaled_a[i] >= scaled_a[i + 1]:
-    #                 if scaled_a[i] > 0.3:
-    #                     if len(peaks_a) > 0:
-    #                         if abs(peaks_a[len(peaks_a) - 1][1] - lst2_t[i]) < 2:
-    #                             ui.append((scaled_a[i], lst2_t[i]))
-    #                             # print(ui)
-    #                         if abs(peaks_a[len(peaks_a) - 1][1] - lst2_t[i]) > 2:
-    #                             if len(ui) > 0:
-    #                                 if ui[0] in peaks_a:
-    #                                     pass
-    #                                 else:
-    #                                     if len(peaks_a) > 0:
-    #                                         peaks_a[len(peaks_a) - 1] = ui[0]
-    #                                     else:
-    #                                         peaks_a.append(ui[0])
-    #                                         ui = []
-    #                             peaks_a.append((scaled_a[i], lst2_t[i]))
-    #                     else:
-    #                         peaks_a.append((scaled_a[i], lst2_t[i]))
-    # # Display local peaks
-    # # print("Local peaks:", peaks_a)
-    # # Find local peaks
-    # peaks_f = []
-    # ui = []
-    # for i in range(1, len(scaled_f) - 1):
-    #     if lst1_t[i] > lst1_t[0] + 3:
-    #         if scaled_f[i] > scaled_f[i - 1] and scaled_f[i] >= scaled_f[i + 1]:
-    #             if scaled_f[i] > 0.3:
-    #                 if len(peaks_f) > 0:
-    #                     if abs(peaks_f[len(peaks_f) - 1][1] - lst1_t[i]) < 2:
-    #                         ui.append((scaled_f[i], lst1_t[i]))
-    #                         # print(ui)
-    #                     if abs(peaks_f[len(peaks_f) - 1][1] - lst1_t[i]) > 2:
-    #                         if len(ui) > 0:
-    #                             if ui[0] in peaks_f:
-    #                                 pass
-    #                             else:
-    #                                 if len(peaks_f) > 0:
-    #                                     peaks_f[len(peaks_f) - 1] = ui[0]
-    #                                 else:
-    #                                     peaks_f.append(ui[0])
-    #                                     ui = []
-    #                         peaks_f.append((scaled_f[i], lst1_t[i]))
-    #                 else:
-    #                     peaks_f.append((scaled_f[i], lst1_t[i]))
+
     peaks_a = calculation_a(scaled_a,lst2_t)
     print("peaks_a",len(peaks_a))
     peaks_f = calculation(scaled_f,lst1_t)
@@ -148,7 +109,7 @@ def latency(f_31_1, a_31_1):
                 lst1_t.append(peaks_f[y + 1][1])
                 lst2_t.append(peaks_a[y][1])
                 y += 1
-        elif abs(peaks_a[y][1] - peaks_f[y][1]) < 2:
+        elif abs(peaks_a[y][1] - peaks_f[y][1]) <= 2:
             diff.append(abs(peaks_a[y][1] - peaks_f[y][1]))
             scaled_a.append(peaks_a[y][0])
             scaled_f.append(peaks_f[y][0])
@@ -179,10 +140,19 @@ def latency(f_31_1, a_31_1):
         print(0)
     x = [x for x in range(len(diff))]
     # # Plot the graph
+    c = [0.035]*max(len(peaks_a),len(peaks_f))
+    d = [0.065]*max(len(peaks_a),len(peaks_f))
+    e = [0.100]*max(len(peaks_a),len(peaks_f))
+    plt.plot(x, c, color ='red')
+    plt.plot(x,d,color='black')
+    plt.fill_between(x,c,d, color="lightgray", label="Best range")
+    plt.plot(x,e,color='green')
+    plt.fill_between(x,d,e, color='pink', label="Average range")
     plt.bar(x, diff, color='blue',
             width=0.4)
-    plt.plot(x, diff, color='green')
+    plt.plot(x, diff, color='orange',label ='latency')
+    plt.legend()
     plt.title("Latency Graph")
     plt.xlabel("Number of iterations")
-    plt.ylabel("Time (in milliseconds)")
+    plt.ylabel("Time (in Seconds)")
     plt.show()
