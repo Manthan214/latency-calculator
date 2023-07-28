@@ -4,8 +4,6 @@ import pyaudio
 import numpy as np
 from reuseable.configs import MobileConfig
 
-import datetime
-
 
 def audio_intensity(sample_rate=44100, chunk_size=1024):
     """

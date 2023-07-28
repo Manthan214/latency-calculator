@@ -18,8 +18,8 @@ def arduino():
 
     board = [p.device for p in serial.tools.list_ports.comports() if 'USB-SERIAL' in p.description]
     port = pyfirmata.Arduino(board[0])
-    pin = port.get_pin('a:3:i')
-    led = port.get_pin('d:8:o')
+    pin = port.get_pin(MobileConfig.pin)
+    led = port.get_pin(MobileConfig.led)
     it = pyfirmata.util.Iterator(port)
     it.start()
     return pin, led
@@ -62,6 +62,3 @@ def getArduino(pin, led):
                 print("Flash detection :", read_out * 1000)
             else:
                 led.write(0)
-
-# ser,led=arduino()
-# getArduino(ser,led)
