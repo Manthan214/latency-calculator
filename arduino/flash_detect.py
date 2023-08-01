@@ -4,10 +4,6 @@ import serial.tools.list_ports
 from reuseable.configs import MobileConfig
 import pyfirmata
 
-lst1 = []
-lst2 = []
-lst3 = []
-
 
 def arduino():
     """
@@ -41,14 +37,14 @@ def getArduino(pin, led):
         """
     y = 0
     while True:
-        if y > 800:
+        # if y > 800 :
+        #     break
+        if keyboard.is_pressed('insert'):
             break
-        elif keyboard.is_pressed('space'):
-            break
+        time.sleep(0.025)
         global start_time
         read_out = pin.read()
         start_time = time.time()
-        time.sleep(0.02)
         if read_out is not None:
             if read_out >= 0:
                 tup_flash = (read_out, start_time)
@@ -67,5 +63,5 @@ def getArduino(pin, led):
             else:
                 led.write(0)
 
-# x,l=arduino()
-# getArduino(x,l)
+# ser,led=arduino()
+# getArduino(ser,led)

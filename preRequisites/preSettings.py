@@ -2,7 +2,7 @@ import threading
 import time
 
 import simple_colors
-
+from testScripts import testgoogleFile
 from arduino import flash_detect
 from reuseable import serverAppium
 from testScripts import testVideo
@@ -24,7 +24,8 @@ def pre_req():
     serverAppium.start_server()
     try:
         print("----Launching app---- ")
-        testVideo.launch_appium_driver()
+        # testVideo.launch_appium_driver()
+        testgoogleFile.launch_appium_driver()
     except:
         pass
     print("----Initializing pin and port with arduino----")
@@ -36,17 +37,18 @@ def pre_req():
 
     # thread3 = threading.Thread(target=listen.listen)
     # thread3.start()
-    thread1 = threading.Thread(target=testVideo.play_video)
+    # thread1 = threading.Thread(target=testVideo.play_video)
+    # thread1.start()
+    thread1 = threading.Thread(target=testgoogleFile.play_video)
     thread1.start()
-
     # thread2 = threading.Thread(target=flash_detect.getArduino(ser,led))
     # thread2.start()
     time.sleep(5)
 
-    thread5 = threading.Thread(target=testVideo.pauseVideo)
-    thread5.start()
+    # thread5 = threading.Thread(target=testVideo.pauseVideo)
+    # thread5.start()
 
-    thread5.join()
+    # thread5.join()
     thread1.join()
     # thread2.join()
     # thread3.join()
