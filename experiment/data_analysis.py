@@ -69,3 +69,7 @@ def data_analy(f_31_1, a_31_1):
     plt.bar(lst1_t,scaled_f, label="Flash", color="red", width=0.004)
     plt.bar(lst2_t,scaled_a, label="Audio", color="blue", width=0.004)
     plt.show()
+
+
+# data_analy(Flash,Audio)
+
