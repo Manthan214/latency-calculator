@@ -43,7 +43,7 @@ class MobileConfig:
     pin = 'a:3:i'
     led = 'd:8:o'
     Threshold_flash = 0.2
-    Threshold_audio = 0.15
+    Threshold_audio = 0.05
 
     desired_caps = {
         'deviceName': 'Pixel 2',

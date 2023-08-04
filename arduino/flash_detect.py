@@ -37,11 +37,11 @@ def getArduino(pin, led):
         """
     y = 0
     while True:
-        # if y > 800 :
+        # if y > 200:
         #     break
         if keyboard.is_pressed('insert'):
             break
-        time.sleep(0.025)
+        time.sleep(0.015)
         global start_time
         read_out = pin.read()
         start_time = time.time()

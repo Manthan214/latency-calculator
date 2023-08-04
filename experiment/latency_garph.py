@@ -5,7 +5,8 @@ from reuseable.configs import MobileConfig
 
 def calculation(value, timestamp, Threshold_value):
     """
-      Detects peaks in the input data and returns a list of tuples containing peak values and corresponding b-values.
+      Detects peaks in the input data and returns a list of tuples containing
+      peak values and corresponding b-values.
 
       Parameters:
           value (list): List of numeric values representing data.
@@ -20,7 +21,7 @@ def calculation(value, timestamp, Threshold_value):
         if timestamp[i] > timestamp[0] + 2:
             if value[i] > Threshold_value:
                 if len(peak) > 0:
-                    if abs(peak[len(peak) - 1][1] - timestamp[i]) > 3:
+                    if abs(peak[len(peak) - 1][1] - timestamp[i]) > 2:
                         peak.append((value[i], timestamp[i]))
                 else:
                     peak.append((value[i], timestamp[i]))
@@ -76,6 +77,12 @@ def latency(flash, audio):
     audio_time = []
     y = 0
     min1 = min(len(peaks_a), len(peaks_f))
+    # for i in range(min1):
+    #     diff.append(abs(peaks_a[i][1] - peaks_f[i][1]))
+    #     scaled_audio.append(peaks_a[i][0])
+    #     scaled_flash.append(peaks_f[i][0])
+    #     flash_time.append(peaks_f[i][1])
+    #     audio_time.append(peaks_a[i][1])
     while y < min1:
 
         if y + 1 < len(peaks_a) and abs(peaks_a[y][1] - peaks_f[y][1]) > 2:
@@ -93,6 +100,8 @@ def latency(flash, audio):
                 flash_time.append(peaks_f[y + 1][1])
                 audio_time.append(peaks_a[y][1])
                 y += 1
+            else:
+                y += 1
         elif abs(peaks_a[y][1] - peaks_f[y][1]) <= 2:
             diff.append(abs(peaks_a[y][1] - peaks_f[y][1]))
             scaled_audio.append(peaks_a[y][0])
@@ -100,12 +109,10 @@ def latency(flash, audio):
             flash_time.append(peaks_f[y][1])
             audio_time.append(peaks_a[y][1])
             y += 1
-        elif y > min(len(peaks_a), len(peaks_f)):
-            break
-
     print(diff)
 
-    flash_data = {'flash value': scaled_flash, 'flash_time': flash_time, 'Audio value': scaled_audio, 'Audio_time': audio_time,
+    flash_data = {'flash value': scaled_flash, 'flash_time': flash_time, 'Audio value': scaled_audio,
+                  'Audio_time': audio_time,
                   'Latency': diff}
     fdata = pd.DataFrame(flash_data)
     writer = pd.ExcelWriter('Latency_data.xlsx', engine='xlsxwriter')
@@ -124,9 +131,9 @@ def latency(flash, audio):
         print(0)
     x = [x for x in range(len(diff))]
     # # Plot the graph
-    c = [0.035] * max(len(peaks_a), len(peaks_f))
-    d = [0.065] * max(len(peaks_a), len(peaks_f))
-    e = [0.100] * max(len(peaks_a), len(peaks_f))
+    c = [0.035] * len(diff)
+    d = [0.065] * len(diff)
+    e = [0.100] * len(diff)
     plt.plot(x, c, color='red')
     plt.plot(x, d, color='black')
     plt.fill_between(x, c, d, color="lightgray", label="Best range")

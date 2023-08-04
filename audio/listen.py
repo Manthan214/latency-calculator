@@ -1,5 +1,4 @@
 import threading
-
 import speech_recognition as sr
 from testScripts import testVideo
 import time

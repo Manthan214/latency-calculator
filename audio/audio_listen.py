@@ -18,13 +18,15 @@ def audio_intensity(sample_rate=44100, chunk_size=1024):
     audio = pyaudio.PyAudio()
     stream = audio.open(format=pyaudio.paInt16, channels=1, rate=sample_rate,
                         input=True, frames_per_buffer=chunk_size)
-
+    y=0
     Threshold_value = 150
     try:
         while True:
             first_time = time.time()
             if keyboard.is_pressed('insert'):
                 break
+            # if y>200:
+            #     break
             data = np.frombuffer(stream.read(chunk_size), dtype=np.int16)
             timestamp = time.time()
             # Calculate the average absolute amplitude (sound intensity)
@@ -34,6 +36,9 @@ def audio_intensity(sample_rate=44100, chunk_size=1024):
             if sound_intensity > Threshold_value:
                 tup_audio = (sound_intensity, timestamp)
                 MobileConfig.audio_det.append(tup_audio)
+                y = 0
+            else:
+                y += 1
             print(f"{timestamp} - Sound Intensity: {sound_intensity:.2f} dB")
     except KeyboardInterrupt:
         print("Program stopped.")

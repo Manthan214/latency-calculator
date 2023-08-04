@@ -1,6 +1,5 @@
 import threading
 import time
-import multiprocessing
 import simple_colors
 
 from arduino import flash_detect
