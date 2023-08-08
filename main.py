@@ -33,13 +33,11 @@ if __name__ == '__main__':
 
         testgoogleFile.play_video()
         time.sleep(1)
-        # thread6 = threading.Thread(target=listen.audio_p)
         thread6 = threading.Thread(target=audio_listen.audio_intensity)
         thread6.start()
         thread1 = threading.Thread(target=testgoogleFile.pal)
         thread1.start()
-        # time.sleep(0.01)
-        thread2 = threading.Thread(target=flash_detect.getArduino, args=(ser, led))
+        thread2 = threading.Thread(target=flash_detect.get_arduino, args=(ser, led))
         thread2.start()
 
 

@@ -1,9 +1,9 @@
 import threading
 import speech_recognition as sr
-from testScripts import testVideo
+# from testScripts import testVideo
 import time
 import keyboard
-from reuseable.configs import MobileConfig
+# from reuseable.configs import MobileConfig
 
 r = sr.Recognizer()
 m = sr.Microphone()
@@ -62,7 +62,7 @@ class audio(object):
             print(r.energy_threshold)
             if r.energy_threshold >= Threshold_value:
                 tup_audio = (r.energy_threshold, sound_time)
-                MobileConfig.audio_det.append(tup_audio)
+                # MobileConfig.audio_det.append(tup_audio)
                 a = 0
                 print("True")
                 print("----Timestamp of sound detect:", sound_time, "----")
@@ -83,12 +83,12 @@ class audio(object):
         try:
             with m as source:
                 x_current_time = time.time()
-                testVideo.dict["Listen_start"] = str(x_current_time)[6:]
+                # testVideo.dict["Listen_start"] = str(x_current_time)[6:]
                 print("Listen Started....", x_current_time)
                 print("------------------------------------------")
                 audio_data_my = r.listen(source)
                 y_current_time = time.time()
-                testVideo.dict["Listen_stop"] = str(y_current_time)[6:]
+                # testVideo.dict["Listen_stop"] = str(y_current_time)[6:]
                 print("Listen Stopped....", y_current_time)
                 print("------------------------------------------")
             text = r.recognize_google(audio_data_my)
