@@ -3,13 +3,14 @@ import time
 import simple_colors
 
 from arduino import flash_detect
-from audio import audio_listen
+# from audio import audio_listen
+from audio.audio_listen import AudioIntensityRecorder
 from experiment import latency_garph, data_analysis
 from reuseable import serverAppium
 from reuseable.configs import MobileConfig
 from testScripts import testgoogleFile
 
-x = True
+TEMP_VARIABLE = True
 if __name__ == '__main__':
     global ser
     global led
@@ -20,11 +21,13 @@ if __name__ == '__main__':
         print("----Initializing arduino----")
         ser, led = flash_detect.arduino()
         time.sleep(2)
+        recorder = AudioIntensityRecorder()
+        recorder.open_stream()
         print(simple_colors.green("----Pre setting has been finished sucessfully----"))
     except:
-        x = False
+        TEMP_VARIABLE = False
         print(simple_colors.red("----Pre settings has failed!----"))
-    if x:
+    if TEMP_VARIABLE:
         try:
             print(simple_colors.blue("----Relauching the application----"))
             testgoogleFile.launch_appium_driver()
@@ -33,7 +36,7 @@ if __name__ == '__main__':
 
         testgoogleFile.play_video()
         time.sleep(1)
-        thread6 = threading.Thread(target=audio_listen.audio_intensity)
+        thread6 = threading.Thread(target=recorder.record_audio_intensity)
         thread6.start()
         thread1 = threading.Thread(target=testgoogleFile.pal)
         thread1.start()
